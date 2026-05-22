@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: e29d8221f0b04a34aba959d11a3fc487
+timeCreated: 1511764233
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 25800000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 105817
+  packageName: Living Particles
+  packageVersion: 1.5a
+  assetPath: Assets/SineVFX/LivingParticles/Scenes/DemoSceneGamma/LightingData.asset
+  uploadId: 753957

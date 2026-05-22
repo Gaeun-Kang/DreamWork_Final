@@ -1,0 +1,75 @@
+using UnityEngine;
+using System.Collections;
+
+public class GrowthRateController : MonoBehaviour
+{
+    public Renderer targetRenderer;
+    public string growthRateProperty = "_Growth_Rate";
+    public float duration = 2f;
+
+    private Material mat;
+    private Coroutine routine;
+
+    void Awake()
+    {
+        if (targetRenderer == null)
+            targetRenderer = GetComponent<Renderer>();
+
+        mat = targetRenderer.material;
+
+        if (mat.HasProperty(growthRateProperty))
+        {
+            mat.SetFloat(growthRateProperty, 0f);
+        }
+        else
+        {
+            Debug.LogError($"Material does not have property: {growthRateProperty}");
+        }
+    }
+
+    public void PlayGrowth()
+    {
+        if (mat == null) return;
+
+        if (!mat.HasProperty(growthRateProperty))
+        {
+            Debug.LogError($"Material does not have property: {growthRateProperty}");
+            return;
+        }
+
+        if (routine != null)
+            StopCoroutine(routine);
+
+        routine = StartCoroutine(ChangeGrowthRate(0f, 1f));
+    }
+
+    public void ResetGrowth()
+    {
+        if (mat == null) return;
+
+        if (routine != null)
+            StopCoroutine(routine);
+
+        if (mat.HasProperty(growthRateProperty))
+            mat.SetFloat(growthRateProperty, 0f);
+    }
+
+    IEnumerator ChangeGrowthRate(float from, float to)
+    {
+        float elapsed = 0f;
+        mat.SetFloat(growthRateProperty, from);
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsed / duration);
+
+            float value = Mathf.Lerp(from, to, t);
+            mat.SetFloat(growthRateProperty, value);
+
+            yield return null;
+        }
+
+        mat.SetFloat(growthRateProperty, to);
+    }
+}

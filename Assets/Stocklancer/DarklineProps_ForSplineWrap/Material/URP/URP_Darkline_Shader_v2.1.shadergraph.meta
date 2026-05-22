@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 70be98d7e086d2040bd8d60548d67445
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 625f186215c104763be7675aa2d941aa, type: 3}
+AssetOrigin:
+  serializedVersion: 1
+  productId: 322918
+  packageName: 'Darkline Props 7: Spline Wrap'
+  packageVersion: 1.0
+  assetPath: Assets/Stocklancer/DarklineProps_ForSplineWrap/Material/URP/URP_Darkline_Shader_v2.1.shadergraph
+  uploadId: 762968
