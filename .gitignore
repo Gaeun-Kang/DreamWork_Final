@@ -106,6 +106,5 @@ InitTestScene*.unity*
 /[Aa]ssets/[Ss]ceneDependencyCache*
 
 # No upload samples (Assets/Samples)
-/Assets/Samples
 /Assets/_VFX
 /Assets/Oculus
