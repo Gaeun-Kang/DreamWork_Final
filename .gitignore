@@ -104,3 +104,8 @@ InitTestScene*.unity*
 
 # Auto-generated cache in Assets folder
 /[Aa]ssets/[Ss]ceneDependencyCache*
+
+# No upload samples (Assets/Samples)
+/Assets/Samples
+/Assets/_VFX
+/Assets/Oculus
