@@ -16,7 +16,7 @@ public class DissolveStateController : MonoBehaviour
     [Header("Tween Settings")]
     [SerializeField] private float m_MoveDistance = 2f;
     [SerializeField] private float m_MoveDuration = 2f;
-    [SerializeField] private float m_AvatarDissolveDelay = 2f;
+    [SerializeField] private float m_AvatarDissolveDelay = 0.5f;
     [SerializeField] private float m_WallDissolveDelay = 2f;
     [SerializeField] private float m_WallDissolveDuration = 5f;
     [SerializeField] private float m_LightControlDelay = 4f;
@@ -77,14 +77,15 @@ public class DissolveStateController : MonoBehaviour
 
         m_AvatarDissolver.Play(renderers);
         
-        await UniTask.Delay(System.TimeSpan.FromSeconds(m_WallDissolveDelay));
+        //딜레이가 없는 편이 의도와 맞음
+       // await UniTask.Delay(System.TimeSpan.FromSeconds(m_WallDissolveDelay));
 
         // Start wall dissolve AFTER avatar dissolve begins
-        m_WallDissolver.MaterialsDissolveValue = 0.45f;
+        m_WallDissolver.MaterialsDissolveValue = 1.5f;
         DOTween.To(
             () => m_WallDissolver.MaterialsDissolveValue,
             x => m_WallDissolver.MaterialsDissolveValue = x,
-            1.5f,
+            0.45f,
             m_WallDissolveDuration
         ).SetEase(Ease.Linear);
         
