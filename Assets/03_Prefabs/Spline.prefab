@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2176706482574893267}
   - component: {fileID: 9047689649354911045}
   - component: {fileID: 736421758382676541}
-  - component: {fileID: 945718244867851372}
+  - component: {fileID: 7321553557875965311}
   m_Layer: 0
   m_Name: Spline
   m_TagString: Untagged
@@ -106,7 +106,8 @@ MonoBehaviour:
   targetRenderer: {fileID: 9047689649354911045}
   growthRateProperty: _Growth_Rate
   duration: 2
---- !u!114 &945718244867851372
+  mat: {fileID: 0}
+--- !u!114 &7321553557875965311
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -117,6 +118,6 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9ca9f5b739a64e7e98e97ca6f579dbd, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SplineConnectToEgo
+  m_EditorClassIdentifier: "Assembly-CSharp::\u314A"
   egoSphere: {fileID: 0}
   dreamSphere: {fileID: 0}

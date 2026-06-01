@@ -161,7 +161,7 @@ Material:
     - _DiffusePosterizeOffset: 0
     - _DiffusePosterizePower: 1
     - _DiffusePosterizeSteps: 3
-    - _DissolveAmount: 0.49
+    - _DissolveAmount: 1.04
     - _DoubleSidedEnable: 0
     - _DoubleSidedGIMode: 0
     - _DoubleSidedNormalMode: 2

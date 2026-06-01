@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System;
 
 public class GrowthRateController : MonoBehaviour
 {
@@ -7,8 +8,9 @@ public class GrowthRateController : MonoBehaviour
     public string growthRateProperty = "_Growth_Rate";
     public float duration = 2f;
 
-    private Material mat;
-    private Coroutine routine;
+    [SerializeField] private Material mat;
+    [SerializeField] private Coroutine routine;
+
 
     void Awake()
     {
@@ -27,6 +29,18 @@ public class GrowthRateController : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        DreamSphereManager.Instance.OnSpherehover += HandleRaySelect;
+    }
+
+    private void HandleRaySelect(GameObject gameobject)
+    {
+        Debug.Log("오브젝트 선택 확인");
+        PlayGrowth();
+    }
+
+
     public void PlayGrowth()
     {
         if (mat == null) return;
@@ -41,6 +55,8 @@ public class GrowthRateController : MonoBehaviour
             StopCoroutine(routine);
 
         routine = StartCoroutine(ChangeGrowthRate(0f, 1f));
+        //한번만 하고 이벤트 해제!
+        DreamSphereManager.Instance.OnSpherehover -= HandleRaySelect;
     }
 
     public void ResetGrowth()
@@ -71,5 +87,9 @@ public class GrowthRateController : MonoBehaviour
         }
 
         mat.SetFloat(growthRateProperty, to);
+        routine = null;
+
+      
+
     }
 }

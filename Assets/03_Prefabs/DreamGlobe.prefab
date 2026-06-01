@@ -64,6 +64,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DreamGlobe
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ab4dea070d3b24bc881fd9a73af4171c, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -77,6 +81,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ab4dea070d3b24bc881fd9a73af4171c, type: 3}
       insertIndex: -1
       addedObject: {fileID: -5884249308506253002}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ab4dea070d3b24bc881fd9a73af4171c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7259314632056887095}
   m_SourcePrefab: {fileID: 100100000, guid: ab4dea070d3b24bc881fd9a73af4171c, type: 3}
 --- !u!1 &7271283155860403944 stripped
 GameObject:
@@ -150,3 +157,25 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.4999999
   m_Center: {x: 0.000000029802322, y: -0.000004053116, z: 0.00000035762787}
+--- !u!114 &7259314632056887095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7271283155860403944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43f86b14a27b52f4f9298c33015b5c26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Oculus.Interaction::Oculus.Interaction.Grabbable
+  _transferOnSecondSelection: 0
+  _addNewPointsToFront: 0
+  _forwardElement: {fileID: 0}
+  _oneGrabTransformer: {fileID: 0}
+  _twoGrabTransformer: {fileID: 0}
+  _targetTransform: {fileID: 0}
+  _maxGrabPoints: -1
+  _rigidbody: {fileID: 0}
+  _kinematicWhileSelected: 1
+  _throwWhenUnselected: 1

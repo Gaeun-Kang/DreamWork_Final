@@ -10,6 +10,24 @@ public class SimpleLocomotionController : MonoBehaviour
 
     //simple 이동 스크립트, 현재 오른쪽 컨트롤러만 사용하기로 협의 
 
+
+    void BtnDown()
+    {
+        if(OVRInput.GetDown(OVRInput.Button.One))
+        {
+            //A 버튼 UI 띄우기 
+
+        }
+
+        if (OVRInput.GetDown(OVRInput.Button.Two))
+        {
+            //B 버튼 UI 띄우기 
+
+        }
+
+    }
+
+
     private void Update()
     {
         // Right joystick Y → forward/back
@@ -23,8 +41,7 @@ public class SimpleLocomotionController : MonoBehaviour
             Vector3 move = forward * moveInput * moveSpeed * Time.deltaTime;
             PlayerRigRef.Instance.transform.position += move;
         
-        
         }
         
-        }
+     }
 }

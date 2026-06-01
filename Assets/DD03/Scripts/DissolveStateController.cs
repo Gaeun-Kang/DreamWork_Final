@@ -17,8 +17,8 @@ public class DissolveStateController : MonoBehaviour
     [SerializeField] private float m_MoveDistance = 2f;
     [SerializeField] private float m_MoveDuration = 2f;
     [SerializeField] private float m_AvatarDissolveDelay = 0.5f;
-    [SerializeField] private float m_WallDissolveDelay = 2f;
-    [SerializeField] private float m_WallDissolveDuration = 5f;
+    [SerializeField] private float m_WallDissolveDelay = 1.5f;
+    [SerializeField] private float m_WallDissolveDuration = 8f;
     [SerializeField] private float m_LightControlDelay = 4f;
     
     [Header("Light Settings")]
@@ -63,7 +63,7 @@ public class DissolveStateController : MonoBehaviour
         ).SetEase(Ease.InOutSine);
 
         // Wait before avatar dissolve starts
-        await UniTask.Delay(System.TimeSpan.FromSeconds(m_AvatarDissolveDelay));
+        //await UniTask.Delay(System.TimeSpan.FromSeconds(m_AvatarDissolveDelay));
 
         // Avatar dissolve begins
         var ovrAvatarSkinnedRenderables = m_LocalAvatar.GetComponentsInChildren<OvrAvatarUnitySkinnedRenderable>().ToList();
@@ -78,7 +78,7 @@ public class DissolveStateController : MonoBehaviour
         m_AvatarDissolver.Play(renderers);
         
         //딜레이가 없는 편이 의도와 맞음
-       // await UniTask.Delay(System.TimeSpan.FromSeconds(m_WallDissolveDelay));
+        await UniTask.Delay(System.TimeSpan.FromSeconds(m_WallDissolveDelay));
 
         // Start wall dissolve AFTER avatar dissolve begins
         m_WallDissolver.MaterialsDissolveValue = 1.5f;

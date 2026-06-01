@@ -1,16 +1,18 @@
 using UnityEngine;
+using Unity.Mathematics;
 
-public class SplineAimFromEgo : MonoBehaviour
+public class SplineConnectToEgo : MonoBehaviour
 {
     public Transform egoSphere;
-    public Transform dreamSphere;
+    public Transform dreamSphere; //Spline이 향해야하는 방향 
 
     private Quaternion initialRotation;
     private Vector3 initialDirection;
 
     void Awake()
     {
-        if (egoSphere == null || dreamSphere == null) return;
+
+        //if (egoSphere == null) return;
 
         // 처음 배치된 상태의 회전값 저장
         initialRotation = transform.rotation;
@@ -21,6 +23,31 @@ public class SplineAimFromEgo : MonoBehaviour
         if (initialDirection.sqrMagnitude > 0.0001f)
             initialDirection.Normalize();
     }
+
+    private void OnEnable()
+    {
+        DreamSphereManager.Instance.OnSphereSelected += SetdreamSphere;
+    }
+
+    private void OnDisable()
+    {
+        DreamSphereManager.Instance.OnSphereSelected -= SetdreamSphere;
+    }
+
+    private void SetdreamSphere(Transform sphererTransform)
+    {
+        dreamSphere = sphererTransform;
+        Debug.Log("Dream Sphere 선택 완료");
+
+        if (egoSphere != null && dreamSphere != null)
+        {
+            // 타겟이 설정되는 순간의 상태를 '초기 상태'로 갱신합니다.
+            initialRotation = transform.rotation;
+            initialDirection = (dreamSphere.position - egoSphere.position).normalized;
+        }
+
+    }
+
 
     void LateUpdate()
     {

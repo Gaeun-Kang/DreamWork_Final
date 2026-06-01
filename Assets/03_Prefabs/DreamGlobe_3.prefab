@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5102197472969533394}
   - component: {fileID: 7314474559326906137}
   - component: {fileID: 1161432602041977130}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: DreamGlobe_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}

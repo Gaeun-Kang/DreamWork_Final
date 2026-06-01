@@ -28,7 +28,7 @@ MonoBehaviour:
     x: -2308
     y: -1663
     width: 1734
-    height: 5752
+    height: 5762
 --- !u!114 &114350483966674976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2006,7 +2006,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"obj":{"fileID":2800000,"guid":"276d9e395ae18fe40a9b4988549f2349","type":3}}'
+      m_SerializableObject: '{"obj":{"fileID":2800000,"guid":"8f81b6045c74eaa40a19715bf3b52bd1","type":3}}'
     m_Space: -1
   m_Property:
     name: Guide Texture
