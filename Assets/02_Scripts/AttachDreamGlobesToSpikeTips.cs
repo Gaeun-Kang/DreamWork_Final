@@ -31,7 +31,7 @@ public class AttachDreamGlobesToSpikeTips : MonoBehaviour
     public float hiddenRadius = 5.1f;
 
     [Header("Globe Scale")]
-    public float minGlobeScale = 0f;
+    public float minGlobeScale = 1f; //임시로 스케일 1로 유지 
     public float maxGlobeScale = 1f;
     public float shrinkSmoothSpeed = 8f;
 

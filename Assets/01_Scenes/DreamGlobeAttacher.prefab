@@ -1,0 +1,126 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6219724988020352669
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7908026624711067846}
+  - component: {fileID: 4686817484478892825}
+  m_Layer: 0
+  m_Name: DreamGlobeAttacher
+  m_TagString: Untagged
+  m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7908026624711067846
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6219724988020352669}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4686817484478892825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6219724988020352669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 109ea1d7b8211477898d64e21e7599a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AttachDreamGlobesToSpikeTips
+  pointRoot: {fileID: 0}
+  dreamGlobePrefab: {fileID: 7271283155860403944, guid: 44fff668d58e94ce09094f468f8098a3, type: 3}
+  splineObjectConnector: {fileID: 0}
+  baseMaterial: {fileID: 2100000, guid: 6db5dabaa2cc0eb4ca5bc4019f9dea9b, type: 2}
+  globeTextures:
+  - {fileID: 2800000, guid: 6b9d3a18af2764fcea71f7957ad6ec63, type: 3}
+  - {fileID: 2800000, guid: e4dded57600c84959a81c7cb59ff2972, type: 3}
+  - {fileID: 2800000, guid: 9d7826d39ca7c431bae879b9414ec33c, type: 3}
+  - {fileID: 2800000, guid: dec024bab3edf410db5e11eaa6520a4c, type: 3}
+  - {fileID: 2800000, guid: 69d7d64324286454ea976ae03ffb8c87, type: 3}
+  - {fileID: 2800000, guid: b90d2a18b7c0a4e9a9c0a72e8322913c, type: 3}
+  - {fileID: 2800000, guid: 5e1049d1ab4bf478dbca8d41bcf6c6b4, type: 3}
+  - {fileID: 2800000, guid: 3109755cee9354518891a3cd08d0605e, type: 3}
+  - {fileID: 2800000, guid: 9b4a6ccc8def144158e7b481fad59156, type: 3}
+  - {fileID: 2800000, guid: 1428ccab073b0433c909646c9637ae35, type: 3}
+  - {fileID: 2800000, guid: af3a1833fc32d4151bfac25cbaec92c8, type: 3}
+  - {fileID: 2800000, guid: d9c97e6e1da0e4d01982ec69ba7e4b61, type: 3}
+  - {fileID: 2800000, guid: 2aeae5eba309e4bff83f54a016fd4b82, type: 3}
+  - {fileID: 2800000, guid: c972942a02ec24d1d925ecbbc3712d6b, type: 3}
+  - {fileID: 2800000, guid: ac9345fc25a464c128abce7ae7405074, type: 3}
+  - {fileID: 2800000, guid: 3cd7ed01fa4db4c609ed570502d70df4, type: 3}
+  - {fileID: 2800000, guid: 8cf3e3b852915408495672fb56d3749a, type: 3}
+  - {fileID: 2800000, guid: f3a254ffebdee4f16a72dd4ee7ee84e7, type: 3}
+  - {fileID: 2800000, guid: 3d2b0c50b4e394d5db757e0f1f43fce0, type: 3}
+  - {fileID: 2800000, guid: f45bf9a36f3ba4ca3870687df801bac3, type: 3}
+  - {fileID: 2800000, guid: 391899c312cd543e3870f33d61bbdbbc, type: 3}
+  - {fileID: 2800000, guid: 4622db4f8d59f4a55906ac1e3875a10a, type: 3}
+  - {fileID: 2800000, guid: adf068d37e6334307892ebdb11312eda, type: 3}
+  - {fileID: 2800000, guid: 8c40dbe3db4404194849064075eeb1ca, type: 3}
+  - {fileID: 2800000, guid: 76b49570314894c05a5f5395c43ce297, type: 3}
+  - {fileID: 2800000, guid: 6a5ae04f1aa754d909ddf47803327bbc, type: 3}
+  - {fileID: 2800000, guid: 9d07ea8a7b06a44d1b5f620ac9711763, type: 3}
+  - {fileID: 2800000, guid: a30be49c1e61d4e71a70391de3880b1d, type: 3}
+  - {fileID: 2800000, guid: f2c839958f1dc493196f46aadda5e509, type: 3}
+  - {fileID: 2800000, guid: 112910089e4d344488f6180ba9d673c0, type: 3}
+  - {fileID: 2800000, guid: ad4e83ce90de64dd28cf8880a0f61032, type: 3}
+  - {fileID: 2800000, guid: 079933f4602744f93a5e5cede7b41559, type: 3}
+  - {fileID: 2800000, guid: 3cb549de05a304432b39872d209c0c86, type: 3}
+  - {fileID: 2800000, guid: addadb671e54c49c5b6a87cbb63d6870, type: 3}
+  - {fileID: 2800000, guid: a89fd6dd781814b01bdb77b6cae4e511, type: 3}
+  - {fileID: 2800000, guid: f2211b6bd3af44751bc5fefe908b8330, type: 3}
+  - {fileID: 2800000, guid: 5f83d90bfb2174d249a1fcf687641a14, type: 3}
+  - {fileID: 2800000, guid: 7a5810411a93c46d3bf017227a1cab88, type: 3}
+  - {fileID: 2800000, guid: 35895c39520ed4a228c0c5a5946ad8e0, type: 3}
+  - {fileID: 2800000, guid: 7d021395d40a94f5287d82b6d8474fd0, type: 3}
+  - {fileID: 2800000, guid: 255b0ad7a86514bbc9183efe1f6d9790, type: 3}
+  - {fileID: 2800000, guid: 1729e8ac06b4644d4b0be8737ede1bb2, type: 3}
+  - {fileID: 2800000, guid: b4364617170894d9c93dbe61a0386cde, type: 3}
+  - {fileID: 2800000, guid: 83c73ddf1e30e4449956f57f112850b9, type: 3}
+  - {fileID: 2800000, guid: f681c9b95ad3f4ccdb67370640a6b2b1, type: 3}
+  - {fileID: 2800000, guid: 6fc11ab3a9185479987878577ebc852c, type: 3}
+  - {fileID: 2800000, guid: 50c7b745f078a4d11ac11b0b0f388c80, type: 3}
+  - {fileID: 2800000, guid: 1ca1fe5cba91c410189fb2bc7acb3959, type: 3}
+  - {fileID: 2800000, guid: 8ca9b472c0d7d47c8bf5a8f21a50f859, type: 3}
+  - {fileID: 2800000, guid: d0fca2aa354074d59bae4a737ad7f486, type: 3}
+  - {fileID: 2800000, guid: aa4b7628c0942408e802b6395ac7036a, type: 3}
+  - {fileID: 2800000, guid: 58a930075d5c14d24bed104cadeb39b2, type: 3}
+  - {fileID: 2800000, guid: effd7d68ff65349c18629093cb578a79, type: 3}
+  texturePropertyName: _MainTex
+  appearDelay: 1.5
+  localPositionOffset: {x: 0, y: 0, z: 0}
+  localRotationEuler: {x: 0, y: 0, z: 0}
+  localScale: {x: 1, y: 1, z: 1}
+  domeCenter: {fileID: 0}
+  visibleRadius: 3.5
+  shrinkStartRadius: 7
+  hiddenRadius: 7.5
+  minGlobeScale: 0
+  maxGlobeScale: 1
+  shrinkSmoothSpeed: 8
+  alembicSyncPlayer: {fileID: 0}
+  detachOnClick: 1
+  hideOtherGlobesOnClick: 1
+  smallEgoTargetRenderers:
+  - {fileID: 0}
+  splineGrowthController: {fileID: 0}
+  splineGrowthDelay: 0.9
+  attachOnStart: 1
+  clearExistingGlobes: 1
+  globeNamePrefix: DreamGlobe_

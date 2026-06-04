@@ -2,7 +2,7 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 
-//[CreateAssetMenu(fileName = "ImageSetting", menuName = "")]
+[CreateAssetMenu(fileName = "ImageSetting", menuName = "Scriptable Objects/Image Setting")]
 public class ImageSetting : ScriptableObject
 {
 

@@ -25,13 +25,13 @@ MonoBehaviour:
     m_Start: 0
     m_ClipIn: 0
     m_Asset: {fileID: 7482885197287701812}
-    m_Duration: 5.65
+    m_Duration: 2
     m_TimeScale: 1
     m_ParentTrack: {fileID: -6804766156755408187}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
-    m_BlendInDuration: -1
-    m_BlendOutDuration: -1
+    m_BlendInDuration: 0
+    m_BlendOutDuration: 0
     m_MixInCurve:
       serializedVersion: 2
       m_Curve:
@@ -89,7 +89,7 @@ MonoBehaviour:
     m_PreExtrapolationMode: 0
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
-    m_DisplayName: VisualEffectControlClip
+    m_DisplayName: ' '
   m_Markers:
     m_Objects: []
   m_VFXVersion: 1

@@ -1,0 +1,215 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7922981575974436975
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4274023650085074426}
+  - component: {fileID: 4424553718321277777}
+  - component: {fileID: 2759228556661113174}
+  - component: {fileID: 5864849706826317346}
+  m_Layer: 0
+  m_Name: ISDK_RayGrabInteraction
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4274023650085074426
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7922981575974436975}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7840738942364936089}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4424553718321277777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7922981575974436975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb86ba9d4c5126e48bfef9b0c9550e9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interactorFilters: []
+  _maxInteractors: -1
+  _maxSelectingInteractors: -1
+  _data: {fileID: 0}
+  _pointableElement: {fileID: 2075337986655223621}
+  _surface: {fileID: 5864849706826317346}
+  _selectSurface: {fileID: 0}
+  _movementProvider: {fileID: 2759228556661113174}
+  _tiebreakerScore: 0
+--- !u!114 &2759228556661113174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7922981575974436975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 953054d108799b942815afb3405983ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5864849706826317346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7922981575974436975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2140d2b457bea84881488302059889b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Oculus.Interaction::Oculus.Interaction.Surfaces.ColliderSurface
+  _collider: {fileID: 8102233645252692179}
+--- !u!1001 &6892953640187963010
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1925752629741207301, guid: 759e69c12ebe9ce48a663927e69b39f5, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: -6278744123025678890, guid: ab4dea070d3b24bc881fd9a73af4171c, type: 3}
+    - target: {fileID: 3704024146248220955, guid: 759e69c12ebe9ce48a663927e69b39f5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 4.045905
+      objectReference: {fileID: 0}
+    - target: {fileID: 3704024146248220955, guid: 759e69c12ebe9ce48a663927e69b39f5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.050657
+      objectReference: {fileID: 0}
+    - target: {fileID: 3704024146248220955, guid: 759e69c12ebe9ce48a663927e69b39f5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.17760529
+      objectReference: {fileID: 0}
+    - target: {fileID: 3704024146248220955, guid: 759e69c12ebe9ce48a663927e69b39f5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3704024146248220955, guid: 759e69c12ebe9ce48a663927e69b39f5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3704024146248220955, guid: 759e69c12ebe9ce48a663927e69b39f5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3704024146248220955, guid: 759e69c12ebe9ce48a663927e69b39f5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3704024146248220955, guid: 759e69c12ebe9ce48a663927e69b39f5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3704024146248220955, guid: 759e69c12ebe9ce48a663927e69b39f5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3704024146248220955, guid: 759e69c12ebe9ce48a663927e69b39f5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5179806566850021070, guid: 759e69c12ebe9ce48a663927e69b39f5, type: 3}
+      propertyPath: m_Constraints
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 8836636835234912404, guid: 759e69c12ebe9ce48a663927e69b39f5, type: 3}
+      propertyPath: m_Name
+      value: Test Sphere Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 9116315821946536972, guid: 759e69c12ebe9ce48a663927e69b39f5, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -8130154717187751076, guid: ab4dea070d3b24bc881fd9a73af4171c, type: 3}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 3704024146248220955, guid: 759e69c12ebe9ce48a663927e69b39f5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4274023650085074426}
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8836636835234912404, guid: 759e69c12ebe9ce48a663927e69b39f5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2075337986655223621}
+    - targetCorrespondingSourceObject: {fileID: 8836636835234912404, guid: 759e69c12ebe9ce48a663927e69b39f5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9216373974335373349}
+  m_SourcePrefab: {fileID: 100100000, guid: 759e69c12ebe9ce48a663927e69b39f5, type: 3}
+--- !u!54 &1750473571315441740 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 5179806566850021070, guid: 759e69c12ebe9ce48a663927e69b39f5, type: 3}
+  m_PrefabInstance: {fileID: 6892953640187963010}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2669151005755358742 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8836636835234912404, guid: 759e69c12ebe9ce48a663927e69b39f5, type: 3}
+  m_PrefabInstance: {fileID: 6892953640187963010}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2075337986655223621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2669151005755358742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43f86b14a27b52f4f9298c33015b5c26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Oculus.Interaction::Oculus.Interaction.Grabbable
+  _transferOnSecondSelection: 0
+  _addNewPointsToFront: 0
+  _forwardElement: {fileID: 0}
+  _oneGrabTransformer: {fileID: 0}
+  _twoGrabTransformer: {fileID: 0}
+  _targetTransform: {fileID: 7840738942364936089}
+  _maxGrabPoints: -1
+  _rigidbody: {fileID: 1750473571315441740}
+  _kinematicWhileSelected: 0
+  _throwWhenUnselected: 0
+--- !u!114 &9216373974335373349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2669151005755358742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4beec5c0247f0a241ba98a1f87462c1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RayEventProvider
+  grabbable: {fileID: 2075337986655223621}
+--- !u!4 &7840738942364936089 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3704024146248220955, guid: 759e69c12ebe9ce48a663927e69b39f5, type: 3}
+  m_PrefabInstance: {fileID: 6892953640187963010}
+  m_PrefabAsset: {fileID: 0}
+--- !u!135 &8102233645252692179 stripped
+SphereCollider:
+  m_CorrespondingSourceObject: {fileID: 3447604754537180753, guid: 759e69c12ebe9ce48a663927e69b39f5, type: 3}
+  m_PrefabInstance: {fileID: 6892953640187963010}
+  m_PrefabAsset: {fileID: 0}

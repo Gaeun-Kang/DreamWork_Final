@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -32,6 +33,7 @@ namespace INab.Dissolve
         #region ManualControl
         public bool manualControl = false;
 
+
         [Tooltip("When turned on, material values will always be updated in the update() function. Turn it off when you want to modify the dissolve amount property in materials. It is automatically turned on in the Start() function and needs to be on during runtime.")]
         public bool updateValues = true;
 
@@ -42,6 +44,10 @@ namespace INab.Dissolve
         [SerializeField,Range(-1,2)]
         [Tooltip("Value of the dissolve amount property in the inverted materials list.")]
         private float MaterialsInvertedDissolveValue = 0f;
+
+
+        public MeshRenderer meshRenderer;
+
 
         #endregion
 
@@ -77,6 +83,9 @@ namespace INab.Dissolve
         public List<Material> materialsInverted = new List<Material>();
 
 
+        //MaterialsDissolveValue Event
+        public event Action<float> OnDissolve;
+
         #region VFXGraph
         // Delegates used with visual effect graph
 
@@ -91,6 +100,11 @@ namespace INab.Dissolve
         private void OnEnable()
         {
             currentState = initialState;
+        }
+
+        private void Awake()
+        {
+            meshRenderer = GetComponent<MeshRenderer>();
         }
 
         public void Start()
@@ -128,6 +142,8 @@ namespace INab.Dissolve
             }
 
         }
+
+
 
         public void Update()
         {
@@ -218,6 +234,9 @@ namespace INab.Dissolve
                 // Change material value
                 material.SetFloat("_DissolveAmount", MaterialsDissolveValue);
 
+                //Event to MagicBall
+                OnDissolve?.Invoke(MaterialsDissolveValue);
+
                 // Call event for visual effect
                 if (OnPropertyUpdate != null) OnPropertyUpdate(MaterialsDissolveValue);
             }
@@ -258,6 +277,7 @@ namespace INab.Dissolve
         {
             // Call event for visual effect
             if (OnDissolveStateChange != null) OnDissolveStateChange(start,materialize);
+            
         }
 
         // Check if a flag is set in a bitmask
@@ -373,7 +393,9 @@ namespace INab.Dissolve
                     ChangeDissolveAmount(material, 1 - dissolveAmount);
                 }
 
+              
                 yield return null;
+
             }
 
             currentState = DissolveState.Materialized;

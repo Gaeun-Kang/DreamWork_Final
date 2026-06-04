@@ -66,7 +66,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ab4dea070d3b24bc881fd9a73af4171c, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -74,68 +74,22 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ab4dea070d3b24bc881fd9a73af4171c, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2700231323232257257}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ab4dea070d3b24bc881fd9a73af4171c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: -7901106955387541942}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ab4dea070d3b24bc881fd9a73af4171c, type: 3}
-      insertIndex: -1
       addedObject: {fileID: -5884249308506253002}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ab4dea070d3b24bc881fd9a73af4171c, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 2336544492061082068}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ab4dea070d3b24bc881fd9a73af4171c, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 7259314632056887095}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ab4dea070d3b24bc881fd9a73af4171c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3509314992901704985}
   m_SourcePrefab: {fileID: 100100000, guid: ab4dea070d3b24bc881fd9a73af4171c, type: 3}
 --- !u!1 &7271283155860403944 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: ab4dea070d3b24bc881fd9a73af4171c, type: 3}
   m_PrefabInstance: {fileID: 7505706522573933497}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2700231323232257257
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7271283155860403944}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3b385ff47ac64613adc62cec3d8395f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DreamGlobeScaleByCenterDistance
-  domeCenter: {fileID: 0}
-  visibleRadius: 1.5
-  shrinkStartRadius: 4.5
-  hiddenRadius: 4.5
-  appearDelay: 1
-  minScale: 0
-  maxScale: 1
-  shrinkSmoothSpeed: 8
-  currentDistance: 0
-  scaleValue: 0
-  hasAppeared: 0
-  appearTimer: 0
---- !u!114 &-7901106955387541942
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7271283155860403944}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d56b85ebec7d14639a73abd7f89dd01e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DreamGlobeClickDetach
-  alembicSyncPlayer: {fileID: 0}
-  pointRoot: {fileID: 0}
-  targetRenderers: []
-  splineObjectConnector: {fileID: 0}
-  splineGrowthController: {fileID: 0}
-  splineGrowthDelay: 1.5
-  detachOnClick: 1
-  hideOtherGlobesOnClick: 1
-  disableScaleControllerOnDetach: 1
-  globeNamePrefix: DreamGlobe_
 --- !u!135 &-5884249308506253002
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -157,6 +111,33 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.4999999
   m_Center: {x: 0.000000029802322, y: -0.000004053116, z: 0.00000035762787}
+--- !u!54 &2336544492061082068
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7271283155860403944}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 14
+  m_CollisionDetection: 0
 --- !u!114 &7259314632056887095
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,6 +157,19 @@ MonoBehaviour:
   _twoGrabTransformer: {fileID: 0}
   _targetTransform: {fileID: 0}
   _maxGrabPoints: -1
-  _rigidbody: {fileID: 0}
+  _rigidbody: {fileID: 2336544492061082068}
   _kinematicWhileSelected: 1
   _throwWhenUnselected: 1
+--- !u!114 &3509314992901704985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7271283155860403944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4beec5c0247f0a241ba98a1f87462c1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RayEventProvider
+  grabbable: {fileID: 7259314632056887095}

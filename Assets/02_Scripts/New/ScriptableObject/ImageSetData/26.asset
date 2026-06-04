@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 551b716abc051114d837c603eb71dbcd, type: 3}
+  m_Name: 26
+  m_EditorClassIdentifier: Assembly-CSharp::ImageSetData
+  setID: 26
+  mainImage: {fileID: 2800000, guid: f26b632b1772f5349a72918e6dae010a, type: 3}
+  relateImage: {fileID: 2800000, guid: e22fb566b77468c40ad2165dc4c2e839, type: 3}
+  realImage: {fileID: 2800000, guid: 4ffb4c5a75146494592aa5b6307edebe, type: 3}
