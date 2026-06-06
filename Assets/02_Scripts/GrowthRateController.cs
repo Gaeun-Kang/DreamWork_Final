@@ -9,6 +9,7 @@ public class GrowthRateController : MonoBehaviour
     public float duration = 2f;
 
     [SerializeField] private Material mat;
+    [SerializeField] private GameObject Spline;
     [SerializeField] private Coroutine routine;
 
 
@@ -27,6 +28,8 @@ public class GrowthRateController : MonoBehaviour
         {
             Debug.LogError($"Material does not have property: {growthRateProperty}");
         }
+
+        Spline.SetActive(false);
     }
 
     private void OnEnable()
@@ -37,6 +40,7 @@ public class GrowthRateController : MonoBehaviour
     private void HandleRaySelect(GameObject gameobject)
     {
         Debug.Log("오브젝트 선택 확인");
+        Spline.SetActive(true);
         PlayGrowth();
     }
 

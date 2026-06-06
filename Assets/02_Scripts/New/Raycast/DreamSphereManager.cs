@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DreamSphereManager : MonoBehaviour
 {
-   //DreamSphere <-> Spline 간 이벤트 관리 매니저
+   //Ray 관련 이벤트 총괄 매니저 
    //RayEventProvider가 구독 
 
     public static DreamSphereManager Instance { get; private set; }

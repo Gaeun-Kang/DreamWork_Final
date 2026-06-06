@@ -1,11 +1,17 @@
 using INab.Dissolve;
+using System.Collections;
+using System.Drawing;
 using UnityEngine;
 using UnityEngine.VFX;
+using static UnityEngine.ParticleSystem;
 
 public class MagicBalllVisble : MonoBehaviour
 {
     [SerializeField] private VisualEffect magicball;
     [SerializeField] private Dissolver mainDissolver; //기준점이 되는 Dissover script
+     public string BallScale = "BallScale";
+     private float duration = 1.2f;
+    
 
     //시작할땐 off
     void Awake()
@@ -31,4 +37,8 @@ public class MagicBalllVisble : MonoBehaviour
         if(value < 0.8) magicball.enabled = true;
     }
 
+    public void ShrinkVFX()
+    {
+        magicball.SetFloat(BallScale, 0f);
+    }
 }

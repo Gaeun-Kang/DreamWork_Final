@@ -1,4 +1,4 @@
-using Oculus.Interaction;
+﻿using Oculus.Interaction;
 using System;
 using System.Security.Cryptography;
 using UnityEngine;
@@ -7,15 +7,30 @@ public class RayEventProvider : MonoBehaviour
 {
     [Header("Setup")]
     [SerializeField] private Grabbable grabbable;
+    [SerializeField] private SelectableObject selectableObject;
+    [SerializeField] private MagicBalllVisble magicballVisble;
+    [SerializeField] private PortallMaterialController portallMaterialController;
+
 
     void Awake()
     {
+        if(selectableObject == null) selectableObject = GetComponent<SelectableObject>();
+
         if (grabbable == null)
         {
             grabbable = GetComponent<Grabbable>();
-            if (grabbable == null)
-                Debug.LogError("[RayEventProvider] Grabbable ������Ʈ�� ã�� �� �����ϴ�.");
+            Debug.LogError("[RayEventProvider] Grabbable 컴포넌트를 찾을 수 없습니다.");
         }
+
+        GameObject targetobj = GameObject.FindWithTag("Portal");
+        if (portallMaterialController == null) 
+        {
+            portallMaterialController = targetobj.GetComponent<PortallMaterialController>();
+            magicballVisble = targetobj.GetComponent<MagicBalllVisble>();
+        }
+        
+        
+
     }
 
     void OnEnable()
@@ -36,6 +51,11 @@ public class RayEventProvider : MonoBehaviour
         }
     }
 
+    public void SetPortalController(PortallMaterialController controller)
+    {
+        portallMaterialController = controller;
+    }
+
     //send own transform info to DreamSphererManager 
     private void SphereselectedEvent(PointerEvent pointerEvent)
     {
@@ -49,10 +69,20 @@ public class RayEventProvider : MonoBehaviour
 
             case PointerEventType.Select:
                 Debug.Log("pick up DreamSphere");
+                ImageSetData imageSet = selectableObject.GetImageSet();
+
+                if (imageSet == null)
+                {
+                    Debug.LogWarning(
+                        $"[GlobeSelectionBridge] '{gameObject.name}' — ImageSet을 가져오지 못했습니다. " +
+                        "SetGlobeIndex()가 호출되었는지, 해당 인덱스가 있는지 확인하세요.", this);
+                    return;
+                }
+
+                portallMaterialController.ApplyRelateImage(imageSet);
+                magicballVisble.ShrinkVFX();
                 DreamSphereManager.Instance.SendSphereInfo(this.transform);
                 break;
-
-          
         }
 
     }

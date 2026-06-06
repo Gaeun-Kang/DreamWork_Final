@@ -248,8 +248,8 @@ MonoBehaviour:
     serializedVersion: 2
     x: -983
     y: -28
-    width: 2106
-    height: 1999
+    width: 2105
+    height: 1986
 --- !u!114 &114350483966674976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -287,8 +287,8 @@ MonoBehaviour:
   m_UIInfos: {fileID: 114340500867371532}
   m_CustomAttributes: []
   m_ParameterInfo:
-  - name: Particle size
-    path: Particle size
+  - name: BallScale
+    path: BallScale
     tooltip: 
     space: -1
     spaceable: 0
@@ -4303,7 +4303,7 @@ MonoBehaviour:
   m_InputSlots: []
   m_OutputSlots:
   - {fileID: 8926484042661614692}
-  m_ExposedName: Particle size
+  m_ExposedName: BallScale
   m_Exposed: 1
   m_Order: 0
   m_Category: 
@@ -4762,7 +4762,7 @@ MonoBehaviour:
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
   m_UIPosition: {x: 0, y: 0}
-  m_UICollapsed: 0
+  m_UICollapsed: 1
   m_UISuperCollapsed: 0
   m_InputSlots: []
   m_OutputSlots:

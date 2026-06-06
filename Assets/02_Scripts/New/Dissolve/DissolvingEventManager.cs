@@ -20,6 +20,7 @@ public class DissolvingEventManager : MonoBehaviour
     [SerializeField] private GameObject Morphpreafab;
   
     private bool isPlaying = true;
+    private bool Dissolved = false;
 
     private void Awake()
     {
@@ -40,7 +41,6 @@ public class DissolvingEventManager : MonoBehaviour
     //Dissolve동안 일어나는 이벤트
     //1. Material 교체   2. PlayableDirector(Morph Event)
 
-
     private void DissolvingEvent(float value)
     {
 
@@ -52,11 +52,12 @@ public class DissolvingEventManager : MonoBehaviour
 
         if (value < 0.8f) MorphBaker.enabled = false;
 
-        if (value < 0.5f) {
+        if (value < 0.5f && Dissolved == false) {
             
             DomeMeshrenderer.material = AfterDissolve;
             playableDirector.Stop();
             AttachDream.AttachDreamGlobes();
+            Dissolved = true;
 
         }
         

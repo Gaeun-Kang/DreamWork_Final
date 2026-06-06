@@ -138,7 +138,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8836636835234912404, guid: 759e69c12ebe9ce48a663927e69b39f5, type: 3}
       propertyPath: m_Name
-      value: Test Sphere Variant
+      value: GrabbleDreamGlobe
       objectReference: {fileID: 0}
     - target: {fileID: 9116315821946536972, guid: 759e69c12ebe9ce48a663927e69b39f5, type: 3}
       propertyPath: m_Mesh
@@ -157,6 +157,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8836636835234912404, guid: 759e69c12ebe9ce48a663927e69b39f5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 9216373974335373349}
+    - targetCorrespondingSourceObject: {fileID: 8836636835234912404, guid: 759e69c12ebe9ce48a663927e69b39f5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -8746914828110966332}
   m_SourcePrefab: {fileID: 100100000, guid: 759e69c12ebe9ce48a663927e69b39f5, type: 3}
 --- !u!54 &1750473571315441740 stripped
 Rigidbody:
@@ -203,6 +206,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RayEventProvider
   grabbable: {fileID: 2075337986655223621}
+  selectableObject: {fileID: -8746914828110966332}
+  portallMaterialController: {fileID: 0}
+--- !u!114 &-8746914828110966332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2669151005755358742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76f3fa1d443b5824a9c613f3f3b8daed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SelectableObject
+  imageSetting: {fileID: 11400000, guid: 81a344b8a7d30074b992f3a135d4dc0a, type: 2}
+  _globeIndex: -1
 --- !u!4 &7840738942364936089 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3704024146248220955, guid: 759e69c12ebe9ce48a663927e69b39f5, type: 3}

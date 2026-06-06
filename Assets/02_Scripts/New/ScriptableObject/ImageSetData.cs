@@ -9,5 +9,5 @@ public class ImageSetData : ScriptableObject
     [Header("Images")]
     public Texture2D mainImage; //Dream Sphere Material 
     public Texture2D relateImage; //Portal Material
-    public Texture2D realImage; // SkyBox Material 
+    public Cubemap realImage; // SkyBox Material 
 }

@@ -1,5 +1,8 @@
 using INab.Dissolve;
+using Oculus.Interaction;
+using System.Collections;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public class AttachDreamGlobesToSpikeTips_Test : MonoBehaviour
 {
@@ -34,29 +37,27 @@ public class AttachDreamGlobesToSpikeTips_Test : MonoBehaviour
     [Header("SmallEgo Material Target")]
     public Renderer[] smallEgoTargetRenderers;
 
-    [Header("Spline Growth")]
-    public GrowthRateController splineGrowthController;
-    public float splineGrowthDelay = 1.5f;
-
     [Header("Options")]
     public bool attachOnStart = true;
     public bool clearExistingGlobes = true;
     public string globeNamePrefix = "DreamGlobe_";
+    private bool _isAttaching;
 
-    void Start()
-    {
-      /*  if (attachOnStart)
-            AttachDreamGlobes();
-   */
-        }
 
     //Dissolve 진행 후에 동적 생성 
+    //Spline Growth는 다른 스크립트로 제어 
 
 
     [ContextMenu("Attach Dream Globes")]
     public void AttachDreamGlobes()
     {
 
+        if (_isAttaching)
+        {
+            Debug.LogWarning("[TEST] AttachDreamGlobes 이미 실행 중 - 중복 호출 차단됨");
+            return;
+        }
+        _isAttaching = true;
 
         if (pointRoot == null) { Debug.LogError("Point Root가 비어있습니다."); return; }
         if (dreamGlobePrefab == null) { Debug.LogError("DreamGlobe Prefab이 비어있습니다."); return; }
@@ -91,13 +92,14 @@ public class AttachDreamGlobesToSpikeTips_Test : MonoBehaviour
             globe.transform.localScale = localScale;
 
             ApplyTextureMaterial(globe, index);
-
+   
             // DreamGlobeScaleByCenterDistance 비활성화 (거리 기반 크기 변화 차단)
             DreamGlobeScaleByCenterDistance existingScaler =
                 globe.GetComponent<DreamGlobeScaleByCenterDistance>();
             if (existingScaler != null)
                 existingScaler.enabled = false;
 
+            /* 현재 Detach off 
             DreamGlobeClickDetach clickDetach = globe.GetComponent<DreamGlobeClickDetach>();
             if (clickDetach == null)
                 clickDetach = globe.AddComponent<DreamGlobeClickDetach>();
@@ -111,16 +113,88 @@ public class AttachDreamGlobesToSpikeTips_Test : MonoBehaviour
             clickDetach.splineObjectConnector = splineObjectConnector;
             clickDetach.splineGrowthController = splineGrowthController;
             clickDetach.splineGrowthDelay = splineGrowthDelay;
+            */
 
+            GameObject capturedGlobe = globe;
+            StartCoroutine(ReinitializeISDKComponents(capturedGlobe));
             index++;
         }
 
         Debug.Log($"[TEST] DreamGlobe {index}개 생성 완료 (거리 기반 Scale 비적용)");
-        
+
+
+
     }
+
+    private IEnumerator ReinitializeISDKComponents(GameObject globe)
+    {
+        yield return new WaitForSeconds(0.1f);
+
+        if (globe == null) yield break;
+
+        Transform interactionChild = globe.transform.Find("ISDK_RayGrabInteraction");
+        if (interactionChild == null)
+        {
+            Debug.LogWarning($"[ISDK] {globe.name} 에서 ISDK_RayGrabInteraction을 찾을 수 없습니다.");
+            yield break;
+        }
+
+        // 1단계 : 전체 비활성화
+        interactionChild.gameObject.SetActive(false);
+        yield return null;
+        yield return null;
+
+        // 2단계 : 재활성화 (Awake/Start 재실행)
+        interactionChild.gameObject.SetActive(true);
+        yield return null;
+        yield return null;
+
+        // 3단계 : Rigidbody 확인
+        Rigidbody rb = interactionChild.GetComponentInChildren<Rigidbody>(true);
+        if (rb == null)
+        {
+            rb = interactionChild.gameObject.AddComponent<Rigidbody>();
+            rb.isKinematic = true;
+            rb.useGravity = false;
+            Debug.Log($"[ISDK] {globe.name} Rigidbody 없어서 추가함");
+        }
+
+        // 4단계 : 컴포넌트 개별 토글 (의존 순서 보장)
+        string[] reinitOrder = new string[]
+        {
+        "ColliderSurface",
+        "MoveFromTargetProvider",
+        "Grabbable",
+        "RayInteractable"
+        };
+
+        foreach (string typeName in reinitOrder)
+        {
+            MonoBehaviour[] components = interactionChild.GetComponentsInChildren<MonoBehaviour>(true);
+            foreach (MonoBehaviour comp in components)
+            {
+                if (comp.GetType().Name.Contains(typeName))
+                {
+                    comp.enabled = false;
+                    yield return null;
+                    comp.enabled = true;
+                    yield return null;
+                    Debug.Log($"[ISDK] {typeName} 재초기화 완료");
+                }
+            }
+        }
+
+        Debug.Log($"[ISDK] {globe.name} 전체 재초기화 완료");
+    }
+
+
 
     private void ApplyTextureMaterial(GameObject target, int index)
     {
+        //추가 수정 : Index 기반으로 ImageSettingData 주입 
+        var sel = target.GetComponent<SelectableObject>();
+        if (sel != null) sel.SetGlobeIndex(index);
+
         if (baseMaterial == null) { Debug.LogWarning("Base Material is null."); return; }
         if (globeTextures == null || globeTextures.Length == 0) { Debug.LogWarning("Globe Textures is empty."); return; }
 

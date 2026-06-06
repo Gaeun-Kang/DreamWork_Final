@@ -4,7 +4,7 @@ using Unity.Mathematics;
 public class SplineConnectToEgo : MonoBehaviour
 {
     public Transform egoSphere;
-    public Transform dreamSphere; //Spline이 향해야하는 방향 
+    public Transform DreamSphere = null; //Spline이 향해야하는 방향, 초기값은 null 
 
     private Quaternion initialRotation;
     private Vector3 initialDirection;
@@ -18,32 +18,37 @@ public class SplineConnectToEgo : MonoBehaviour
         initialRotation = transform.rotation;
 
         // 처음 EgoSphere -> DreamSphere 방향 저장
-        initialDirection = dreamSphere.position - egoSphere.position;
+        initialDirection = DreamSphere.position - egoSphere.position;
 
         if (initialDirection.sqrMagnitude > 0.0001f)
             initialDirection.Normalize();
     }
 
-    private void OnEnable()
+    private void Start()
     {
         DreamSphereManager.Instance.OnSphereSelected += SetdreamSphere;
     }
 
-    private void OnDisable()
-    {
-        DreamSphereManager.Instance.OnSphereSelected -= SetdreamSphere;
+
+    private void OnDestroy()
+    { 
+        if (DreamSphereManager.Instance != null)
+        {
+            DreamSphereManager.Instance.OnSphereSelected -= SetdreamSphere;
+        }
     }
+
 
     private void SetdreamSphere(Transform sphererTransform)
     {
-        dreamSphere = sphererTransform;
+        DreamSphere = sphererTransform;
         Debug.Log("Dream Sphere 선택 완료");
 
-        if (egoSphere != null && dreamSphere != null)
+        if (egoSphere != null && DreamSphere != null)
         {
             // 타겟이 설정되는 순간의 상태를 '초기 상태'로 갱신합니다.
             initialRotation = transform.rotation;
-            initialDirection = (dreamSphere.position - egoSphere.position).normalized;
+            initialDirection = (DreamSphere.position - egoSphere.position).normalized;
         }
 
     }
@@ -51,13 +56,13 @@ public class SplineConnectToEgo : MonoBehaviour
 
     void LateUpdate()
     {
-        if (egoSphere == null || dreamSphere == null) return;
+        if (egoSphere == null || DreamSphere == null) return;
 
         // 1. Spline의 pivot 위치를 EgoSphere에 맞춤
         transform.position = egoSphere.position;
 
         // 2. 현재 EgoSphere -> DreamSphere 방향
-        Vector3 currentDirection = dreamSphere.position - egoSphere.position;
+        Vector3 currentDirection = DreamSphere.position - egoSphere.position;
 
         if (currentDirection.sqrMagnitude < 0.0001f) return;
 
