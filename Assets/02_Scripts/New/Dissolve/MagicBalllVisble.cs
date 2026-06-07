@@ -8,16 +8,16 @@ using static UnityEngine.ParticleSystem;
 public class MagicBalllVisble : MonoBehaviour
 {
     [SerializeField] private VisualEffect magicball;
+    [SerializeField] private GameObject emotionVFX;
     [SerializeField] private Dissolver mainDissolver; //기준점이 되는 Dissover script
      public string BallScale = "BallScale";
-     private float duration = 1.2f;
     
 
     //시작할땐 off
     void Awake()
     {
         magicball.enabled = false;
-
+        emotionVFX.SetActive(false);
     }
 
      void OnEnable()
@@ -34,7 +34,9 @@ public class MagicBalllVisble : MonoBehaviour
     //MaterialsDissolveValue 값이 0.5 이하일 때
     void OnMagicballVFX(float value)
     {
-        if(value < 0.8) magicball.enabled = true;
+        if(value < 0.8) 
+            magicball.enabled = true;
+            emotionVFX.SetActive(true); 
     }
 
     public void ShrinkVFX()

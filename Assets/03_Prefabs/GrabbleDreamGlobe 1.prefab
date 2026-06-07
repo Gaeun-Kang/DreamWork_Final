@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7922981575974436975
+--- !u!1 &752979993422650043
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,10 +8,10 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4274023650085074426}
-  - component: {fileID: 4424553718321277777}
-  - component: {fileID: 2759228556661113174}
-  - component: {fileID: 5864849706826317346}
+  - component: {fileID: 3444343946268162680}
+  - component: {fileID: 7714582070986839901}
+  - component: {fileID: 5937205525711030198}
+  - component: {fileID: 1764019517395704906}
   m_Layer: 0
   m_Name: ISDK_RayGrabInteraction
   m_TagString: Untagged
@@ -19,28 +19,28 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4274023650085074426
+--- !u!4 &3444343946268162680
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7922981575974436975}
+  m_GameObject: {fileID: 752979993422650043}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7840738942364936089}
+  m_Father: {fileID: 8053646641120850987}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4424553718321277777
+--- !u!114 &7714582070986839901
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7922981575974436975}
+  m_GameObject: {fileID: 752979993422650043}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bb86ba9d4c5126e48bfef9b0c9550e9d, type: 3}
@@ -50,37 +50,37 @@ MonoBehaviour:
   _maxInteractors: -1
   _maxSelectingInteractors: -1
   _data: {fileID: 0}
-  _pointableElement: {fileID: 2075337986655223621}
-  _surface: {fileID: 5864849706826317346}
+  _pointableElement: {fileID: 2963392137810533861}
+  _surface: {fileID: 1764019517395704906}
   _selectSurface: {fileID: 0}
-  _movementProvider: {fileID: 2759228556661113174}
+  _movementProvider: {fileID: 5937205525711030198}
   _tiebreakerScore: 0
---- !u!114 &2759228556661113174
+--- !u!114 &5937205525711030198
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7922981575974436975}
+  m_GameObject: {fileID: 752979993422650043}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 953054d108799b942815afb3405983ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5864849706826317346
+--- !u!114 &1764019517395704906
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7922981575974436975}
+  m_GameObject: {fileID: 752979993422650043}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a2140d2b457bea84881488302059889b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Oculus.Interaction::Oculus.Interaction.Surfaces.ColliderSurface
-  _collider: {fileID: 8102233645252692179}
---- !u!1001 &6892953640187963010
+  _collider: {fileID: 8321316098221546337}
+--- !u!1001 &6675208369237587248
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -93,16 +93,28 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -6278744123025678890, guid: ab4dea070d3b24bc881fd9a73af4171c, type: 3}
     - target: {fileID: 3704024146248220955, guid: 759e69c12ebe9ce48a663927e69b39f5, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3704024146248220955, guid: 759e69c12ebe9ce48a663927e69b39f5, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3704024146248220955, guid: 759e69c12ebe9ce48a663927e69b39f5, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3704024146248220955, guid: 759e69c12ebe9ce48a663927e69b39f5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.045905
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3704024146248220955, guid: 759e69c12ebe9ce48a663927e69b39f5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.050657
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3704024146248220955, guid: 759e69c12ebe9ce48a663927e69b39f5, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.17760529
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3704024146248220955, guid: 759e69c12ebe9ce48a663927e69b39f5, type: 3}
       propertyPath: m_LocalRotation.w
@@ -138,7 +150,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8836636835234912404, guid: 759e69c12ebe9ce48a663927e69b39f5, type: 3}
       propertyPath: m_Name
-      value: GrabbleDreamGlobe
+      value: GrabbleDreamGlobe 1
       objectReference: {fileID: 0}
     - target: {fileID: 9116315821946536972, guid: 759e69c12ebe9ce48a663927e69b39f5, type: 3}
       propertyPath: m_Mesh
@@ -149,72 +161,51 @@ PrefabInstance:
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 3704024146248220955, guid: 759e69c12ebe9ce48a663927e69b39f5, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4274023650085074426}
+      addedObject: {fileID: 3444343946268162680}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8836636835234912404, guid: 759e69c12ebe9ce48a663927e69b39f5, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2075337986655223621}
+      addedObject: {fileID: 3116384030234910046}
     - targetCorrespondingSourceObject: {fileID: 8836636835234912404, guid: 759e69c12ebe9ce48a663927e69b39f5, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 9216373974335373349}
+      addedObject: {fileID: 2200458259939083744}
     - targetCorrespondingSourceObject: {fileID: 8836636835234912404, guid: 759e69c12ebe9ce48a663927e69b39f5, type: 3}
       insertIndex: -1
-      addedObject: {fileID: -8746914828110966332}
+      addedObject: {fileID: 2963392137810533861}
   m_SourcePrefab: {fileID: 100100000, guid: 759e69c12ebe9ce48a663927e69b39f5, type: 3}
---- !u!54 &1750473571315441740 stripped
+--- !u!54 &1963925704337404926 stripped
 Rigidbody:
   m_CorrespondingSourceObject: {fileID: 5179806566850021070, guid: 759e69c12ebe9ce48a663927e69b39f5, type: 3}
-  m_PrefabInstance: {fileID: 6892953640187963010}
+  m_PrefabInstance: {fileID: 6675208369237587248}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &2669151005755358742 stripped
+--- !u!1 &2738488496230624676 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8836636835234912404, guid: 759e69c12ebe9ce48a663927e69b39f5, type: 3}
-  m_PrefabInstance: {fileID: 6892953640187963010}
+  m_PrefabInstance: {fileID: 6675208369237587248}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2075337986655223621
+--- !u!114 &3116384030234910046
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2669151005755358742}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43f86b14a27b52f4f9298c33015b5c26, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Oculus.Interaction::Oculus.Interaction.Grabbable
-  _transferOnSecondSelection: 0
-  _addNewPointsToFront: 0
-  _forwardElement: {fileID: 0}
-  _oneGrabTransformer: {fileID: 0}
-  _twoGrabTransformer: {fileID: 0}
-  _targetTransform: {fileID: 7840738942364936089}
-  _maxGrabPoints: -1
-  _rigidbody: {fileID: 1750473571315441740}
-  _kinematicWhileSelected: 0
-  _throwWhenUnselected: 0
---- !u!114 &9216373974335373349
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2669151005755358742}
+  m_GameObject: {fileID: 2738488496230624676}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4beec5c0247f0a241ba98a1f87462c1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RayEventProvider
-  grabbable: {fileID: 2075337986655223621}
-  selectableObject: {fileID: -8746914828110966332}
+  grabbable: {fileID: 2963392137810533861}
+  selectableObject: {fileID: 2200458259939083744}
+  magicballVisble: {fileID: 0}
   portallMaterialController: {fileID: 0}
---- !u!114 &-8746914828110966332
+--- !u!114 &2200458259939083744
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2669151005755358742}
+  m_GameObject: {fileID: 2738488496230624676}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 76f3fa1d443b5824a9c613f3f3b8daed, type: 3}
@@ -222,13 +213,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SelectableObject
   imageSetting: {fileID: 11400000, guid: 81a344b8a7d30074b992f3a135d4dc0a, type: 2}
   _globeIndex: -1
---- !u!4 &7840738942364936089 stripped
+--- !u!114 &2963392137810533861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2738488496230624676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43f86b14a27b52f4f9298c33015b5c26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Oculus.Interaction::Oculus.Interaction.Grabbable
+  _transferOnSecondSelection: 0
+  _addNewPointsToFront: 1
+  _forwardElement: {fileID: 0}
+  _oneGrabTransformer: {fileID: 0}
+  _twoGrabTransformer: {fileID: 0}
+  _targetTransform: {fileID: 8053646641120850987}
+  _maxGrabPoints: -1
+  _rigidbody: {fileID: 1963925704337404926}
+  _kinematicWhileSelected: 1
+  _throwWhenUnselected: 1
+--- !u!4 &8053646641120850987 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3704024146248220955, guid: 759e69c12ebe9ce48a663927e69b39f5, type: 3}
-  m_PrefabInstance: {fileID: 6892953640187963010}
+  m_PrefabInstance: {fileID: 6675208369237587248}
   m_PrefabAsset: {fileID: 0}
---- !u!135 &8102233645252692179 stripped
+--- !u!135 &8321316098221546337 stripped
 SphereCollider:
   m_CorrespondingSourceObject: {fileID: 3447604754537180753, guid: 759e69c12ebe9ce48a663927e69b39f5, type: 3}
-  m_PrefabInstance: {fileID: 6892953640187963010}
+  m_PrefabInstance: {fileID: 6675208369237587248}
   m_PrefabAsset: {fileID: 0}

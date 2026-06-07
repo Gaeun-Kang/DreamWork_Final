@@ -11,6 +11,7 @@ public class DreamSphereManager : MonoBehaviour
 
     // Ray Event : Select
     public event Action<Transform> OnSphereSelected;
+    public event Action<GameObject> OnSphereClicked;
     public event Action<GameObject> OnSpherehover;
 
 
@@ -35,6 +36,13 @@ public class DreamSphereManager : MonoBehaviour
     {
         Debug.Log($"[DreamSphereManager] Sphere Grabbed: {sphereTransform.name}");
         OnSphereSelected?.Invoke(sphereTransform);
+    }
+
+    //이벤트 자체는 SendSphererInfo와 같으나 넘겨주는 정보가 다름 
+    public void ClickSphereEvent(GameObject gameobject)
+    {
+        Debug.Log($"[DreamSphereManager] Sphere Grabbed: {gameobject.name}");
+        OnSphereClicked?.Invoke(gameobject);
     }
 
 }

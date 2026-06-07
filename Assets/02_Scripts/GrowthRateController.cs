@@ -28,10 +28,9 @@ public class GrowthRateController : MonoBehaviour
         {
             Debug.LogError($"Material does not have property: {growthRateProperty}");
         }
-
-        Spline.SetActive(false);
     }
-
+    
+    /*
     private void OnEnable()
     {
         DreamSphereManager.Instance.OnSpherehover += HandleRaySelect;
@@ -43,7 +42,7 @@ public class GrowthRateController : MonoBehaviour
         Spline.SetActive(true);
         PlayGrowth();
     }
-
+    */
 
     public void PlayGrowth()
     {
@@ -59,8 +58,7 @@ public class GrowthRateController : MonoBehaviour
             StopCoroutine(routine);
 
         routine = StartCoroutine(ChangeGrowthRate(0f, 1f));
-        //한번만 하고 이벤트 해제!
-        DreamSphereManager.Instance.OnSpherehover -= HandleRaySelect;
+       
     }
 
     public void ResetGrowth()

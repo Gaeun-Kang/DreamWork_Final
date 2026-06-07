@@ -45,8 +45,6 @@ public class AlembicSyncPlayer : MonoBehaviour
         SetTime(currentTime);
     }
 
-
-
     private void SetTime(float time)
     {
         foreach (var p in players)

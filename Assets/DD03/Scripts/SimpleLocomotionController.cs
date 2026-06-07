@@ -11,7 +11,7 @@ public class SimpleLocomotionController : MonoBehaviour
 
     //simple 이동 스크립트, 현재 오른쪽 컨트롤러만 사용하기로 협의 
 
-
+  
     void BtnDown()
     {
         if(OVRInput.GetDown(OVRInput.Button.One))

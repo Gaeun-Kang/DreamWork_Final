@@ -11,9 +11,6 @@ public class AttachDreamGlobesToSpikeTips_Test : MonoBehaviour
     public Dissolver mainDissolver;
     public GameObject dreamGlobePrefab;
 
-    [Header("Spline Object Connection")]
-    public SplineObjectConnectToSelectedGlobe splineObjectConnector;
-
     [Header("Texture Materials")]
     public Material baseMaterial;
     public Texture2D[] globeTextures;
@@ -29,13 +26,29 @@ public class AttachDreamGlobesToSpikeTips_Test : MonoBehaviour
     [Header("DreamGlobe Prefab Scale")]
     public Vector3 localScale = new Vector3(0.5f, 0.5f, 0.5f);
 
+    [Header("Dome Center Distance")]
+    public Transform domeCenter;
+    public float visibleRadius = 1.7f;
+    public float shrinkStartRadius = 4.5f;
+    public float hiddenRadius = 5.1f;
+
+    [Header("Globe Scale")]
+    public float minGlobeScale = 0.5f; 
+    public float maxGlobeScale = 1f;
+    public float shrinkSmoothSpeed = 8f;
+
+    [Header("Spline Object Connection")]
+    public SplineObjectConnectToSelectedGlobe splineObjectConnector;
+
+    [Header("Spline Growth")]
+    public GrowthRateController splineGrowthController;
+    public float splineGrowthDelay = 1.5f;
+
+
     [Header("Click Detach")]
     public AlembicSyncPlayer alembicSyncPlayer;
-    public bool detachOnClick = true;
+    public bool detachOnSelected = true;
     public bool hideOtherGlobesOnClick = true;
-
-    [Header("SmallEgo Material Target")]
-    public Renderer[] smallEgoTargetRenderers;
 
     [Header("Options")]
     public bool attachOnStart = true;
@@ -44,8 +57,8 @@ public class AttachDreamGlobesToSpikeTips_Test : MonoBehaviour
     private bool _isAttaching;
 
 
-    //Dissolve 진행 후에 동적 생성 
-    //Spline Growth는 다른 스크립트로 제어 
+    //Dissolve 진행 후에 동적 생성으로 테스트 
+    //애니메이션 기반 scale 적용  
 
 
     [ContextMenu("Attach Dream Globes")]
@@ -57,6 +70,7 @@ public class AttachDreamGlobesToSpikeTips_Test : MonoBehaviour
             Debug.LogWarning("[TEST] AttachDreamGlobes 이미 실행 중 - 중복 호출 차단됨");
             return;
         }
+
         _isAttaching = true;
 
         if (pointRoot == null) { Debug.LogError("Point Root가 비어있습니다."); return; }
@@ -87,33 +101,47 @@ public class AttachDreamGlobesToSpikeTips_Test : MonoBehaviour
 
             GameObject globe = Instantiate(dreamGlobePrefab, spikeTip);
             globe.name = globeNamePrefix + (index + 1);
+
             globe.transform.localPosition = localPositionOffset;
             globe.transform.localRotation = Quaternion.Euler(localRotationEuler);
             globe.transform.localScale = localScale;
 
             ApplyTextureMaterial(globe, index);
-   
-            // DreamGlobeScaleByCenterDistance 비활성화 (거리 기반 크기 변화 차단)
-            DreamGlobeScaleByCenterDistance existingScaler =
-                globe.GetComponent<DreamGlobeScaleByCenterDistance>();
-            if (existingScaler != null)
-                existingScaler.enabled = false;
+            
 
-            /* 현재 Detach off 
-            DreamGlobeClickDetach clickDetach = globe.GetComponent<DreamGlobeClickDetach>();
+           DreamGlobeScaleByCenterDistance scaler =
+         globe.GetComponent<DreamGlobeScaleByCenterDistance>();
+
+            if (scaler == null)
+            {
+                scaler = globe.AddComponent<DreamGlobeScaleByCenterDistance>();
+            }
+
+            scaler.domeCenter = domeCenter;
+            scaler.visibleRadius = visibleRadius;
+            scaler.shrinkStartRadius = shrinkStartRadius;
+            scaler.hiddenRadius = hiddenRadius;
+            scaler.appearDelay = appearDelay;
+            scaler.minScale = minGlobeScale;
+            scaler.maxScale = maxGlobeScale;
+            scaler.shrinkSmoothSpeed = shrinkSmoothSpeed;
+
+            DreamGlobeClickDetach_Test clickDetach =
+                globe.GetComponent<DreamGlobeClickDetach_Test>();
+
             if (clickDetach == null)
-                clickDetach = globe.AddComponent<DreamGlobeClickDetach>();
+            {
+                clickDetach = globe.AddComponent<DreamGlobeClickDetach_Test>();
+            }
 
             clickDetach.alembicSyncPlayer = alembicSyncPlayer;
             clickDetach.pointRoot = pointRoot;
-            clickDetach.detachOnClick = detachOnClick;
+            clickDetach.detachOnSelected = detachOnSelected;
             clickDetach.hideOtherGlobesOnClick = hideOtherGlobesOnClick;
             clickDetach.globeNamePrefix = globeNamePrefix;
-            clickDetach.targetRenderers = smallEgoTargetRenderers;
             clickDetach.splineObjectConnector = splineObjectConnector;
             clickDetach.splineGrowthController = splineGrowthController;
             clickDetach.splineGrowthDelay = splineGrowthDelay;
-            */
 
             GameObject capturedGlobe = globe;
             StartCoroutine(ReinitializeISDKComponents(capturedGlobe));
@@ -121,8 +149,6 @@ public class AttachDreamGlobesToSpikeTips_Test : MonoBehaviour
         }
 
         Debug.Log($"[TEST] DreamGlobe {index}개 생성 완료 (거리 기반 Scale 비적용)");
-
-
 
     }
 
@@ -219,5 +245,31 @@ public class AttachDreamGlobesToSpikeTips_Test : MonoBehaviour
             r.material = newMaterial;
 
         Debug.Log($"{target.name} → {newMaterial.name} / {texture.name}");
+    }
+
+    //Radius 체크용
+    private void OnDrawGizmosSelected()
+    {
+        Vector3 centerPosition = domeCenter != null ? domeCenter.position : transform.position;
+
+        // 1. Visible Radius (가장 안쪽 - 녹색)
+        Gizmos.color = Color.green;
+        DrawWireCircle(centerPosition, visibleRadius);
+
+        // 2. Shrink Start Radius (중간 영역 - 황색)
+        Gizmos.color = Color.yellow;
+        DrawWireCircle(centerPosition, shrinkStartRadius);
+
+        // 3. Hidden Radius (가장 바깥쪽 - 적색)
+        Gizmos.color = Color.red;
+        DrawWireCircle(centerPosition, hiddenRadius);
+    }
+
+    private void DrawWireCircle(Vector3 center, float radius)
+    {
+#if UNITY_EDITOR
+        UnityEditor.Handles.color = Gizmos.color;
+        UnityEditor.Handles.DrawWireDisc(center, Vector3.up, radius);
+#endif
     }
 }

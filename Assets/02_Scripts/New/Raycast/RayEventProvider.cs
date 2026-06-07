@@ -63,12 +63,10 @@ public class RayEventProvider : MonoBehaviour
         {
 
             case PointerEventType.Hover:
-                Debug.Log("Checking DreamSphere");
                 DreamSphereManager.Instance.HoverSphereinfo(this.gameObject);
                 break;
 
             case PointerEventType.Select:
-                Debug.Log("pick up DreamSphere");
                 ImageSetData imageSet = selectableObject.GetImageSet();
 
                 if (imageSet == null)
@@ -82,6 +80,11 @@ public class RayEventProvider : MonoBehaviour
                 portallMaterialController.ApplyRelateImage(imageSet);
                 magicballVisble.ShrinkVFX();
                 DreamSphereManager.Instance.SendSphereInfo(this.transform);
+                DreamSphereManager.Instance.ClickSphereEvent(this.gameObject);
+
+                this.transform.localPosition = Vector3.zero;
+                this.gameObject.transform.localScale = Vector3.one;
+
                 break;
         }
 

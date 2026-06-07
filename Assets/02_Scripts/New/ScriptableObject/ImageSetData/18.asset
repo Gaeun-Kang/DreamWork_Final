@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: 18
   m_EditorClassIdentifier: Assembly-CSharp::ImageSetData
   setID: 18
-  mainImage: {fileID: 2800000, guid: 6280993b572cf38448ee454f613b159f, type: 3}
-  relateImage: {fileID: 2800000, guid: 0a650025529d8c84183a2338711a8778, type: 3}
-  realImage: {fileID: 2800000, guid: 89c7101854ecb73438ff0f9b84b15bcd, type: 3}
+  mainImage: {fileID: 2800000, guid: 0a650025529d8c84183a2338711a8778, type: 3}
+  relateImage: {fileID: 2800000, guid: 6280993b572cf38448ee454f613b159f, type: 3}
+  realImage: {fileID: 8900000, guid: 89c7101854ecb73438ff0f9b84b15bcd, type: 3}

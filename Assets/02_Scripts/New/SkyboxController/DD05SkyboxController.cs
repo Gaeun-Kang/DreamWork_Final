@@ -1,4 +1,5 @@
 
+using System.Collections;
 using UnityEngine;
 
 /// DD05 레벨의 Skybox Material 텍스쳐를 동적으로 변경.
@@ -10,7 +11,7 @@ public class DD05SkyboxController : MonoBehaviour
     [SerializeField] private Material skyboxMaterial;
 
     [Header("텍스쳐 프로퍼티 이름 (Panoramic: _MainTex / Cubemap: _Tex)")]
-    [SerializeField] private string skyboxTextureProperty = "_MainTex";
+    [SerializeField] private string skyboxTextureProperty = "_Tex";
 
     [Header("Tint 색상 프로퍼티 (선택)")]
     [SerializeField] private string tintProperty = "_Tint";
@@ -20,8 +21,8 @@ public class DD05SkyboxController : MonoBehaviour
     [SerializeField] private bool useTransition = true;
     [SerializeField] private float transitionDuration = 1.0f;
 
+    public ImageSetData CurrentImageSet { get; private set; }
     private Coroutine _transitionCoroutine;
-    private Texture2D _currentTexture;
 
     private void Awake()
     {
@@ -32,77 +33,98 @@ public class DD05SkyboxController : MonoBehaviour
         }
 
         skyboxMaterial = new Material(skyboxMaterial);
+
         // Scene의 Skybox를 해당 Material로 설정
         RenderSettings.skybox = skyboxMaterial;
+
+        //시작은 검은 화면 
+        if (skyboxMaterial.HasProperty(tintProperty))
+        {
+            skyboxMaterial.SetColor(tintProperty, Color.black);
+        }
+
     }
 
     /// LevelTransitionManager: Real Image를 Skybox Texture로 적용
+
     public void ApplyRealImageAsSkybox(ImageSetData imageSet)
     {
+
         if (imageSet == null)
         {
             Debug.LogWarning("[DD05SkyboxController] ImageSetData가 null입니다.");
             return;
         }
 
+
+
         if (imageSet.realImage == null)
         {
-            Debug.LogWarning($"[DD05SkyboxController] Set [{imageSet.setID}]의 Real Image가 없습니다.");
+            Debug.LogWarning($"[DD05SkyboxController] Set [{imageSet.setID}]의 Real Image(Cubemap)가 없습니다.");
             return;
         }
+        CurrentImageSet = imageSet;
 
-        if (useTransition)
+
+        if (useTransition && gameObject.activeInHierarchy)
         {
             if (_transitionCoroutine != null)
                 StopCoroutine(_transitionCoroutine);
-            _transitionCoroutine = StartCoroutine(TransitionSkybox(imageSet.realImage));
+            _transitionCoroutine = StartCoroutine(TransitionSkybox(imageSet.realImage, imageSet.setID));
         }
         else
         {
-            SetSkyboxTexture(imageSet.realImage);
+            SetSkyboxCubemap(imageSet.realImage);
+            Debug.Log($"[DD05SkyboxController] Skybox → Cubemap [{imageSet.setID}] 즉시 적용");
         }
 
-        Debug.Log($"[DD05SkyboxController] Skybox → Real Image [{imageSet.setID}] 적용 완료");
     }
 
-    private void SetSkyboxTexture(Texture2D texture)
+    /// Cubemap을 Skybox Material에 즉시 적용하고 GI를 갱신합니다.
+    private void SetSkyboxCubemap(Cubemap cubemap)
     {
-        _currentTexture = texture;
-        skyboxMaterial.SetTexture(skyboxTextureProperty, texture);
-        DynamicGI.UpdateEnvironment(); // GI 갱신
+        skyboxMaterial.SetTexture(skyboxTextureProperty, cubemap);
+        DynamicGI.UpdateEnvironment();
     }
 
-    private System.Collections.IEnumerator TransitionSkybox(Texture2D newTexture)
+    private IEnumerator TransitionSkybox(Cubemap newCubemap, string setID)
     {
-        float elapsed = 0f;
+        bool hasTint = skyboxMaterial.HasProperty(tintProperty);
         float half = transitionDuration * 0.5f;
+        float elapsed = 0f;
 
-        // Fade out (Tint → Black)
-        while (elapsed < half)
+        //큐브맵 교체 
+
+        SetSkyboxCubemap(newCubemap);
+        Debug.Log($"[DD05SkyboxController] Skybox → Cubemap [{setID}] 전환 완료");
+
+        //Fade In
+        if (hasTint)
         {
-            elapsed += Time.deltaTime;
-            float t = elapsed / half;
-            if (skyboxMaterial.HasProperty(tintProperty))
-                skyboxMaterial.SetColor(tintProperty, Color.Lerp(defaultTint, Color.black, t));
-            yield return null;
-        }
 
-        // 텍스쳐 교체
-        SetSkyboxTexture(newTexture);
-        Debug.Log($"[DD05SkyboxController] 코루틴 내부: 텍스처 교체 완료");
+            elapsed = 0f;
 
-        // Fade in (Black → defaultTint)
-        elapsed = 0f;
-        while (elapsed < half)
-        {
-            elapsed += Time.deltaTime;
-            float t = elapsed / half;
-            if (skyboxMaterial.HasProperty(tintProperty))
+            while (elapsed < half)
+            {
+                elapsed += Time.deltaTime;
+                float t = Mathf.Clamp01(elapsed / half);
                 skyboxMaterial.SetColor(tintProperty, Color.Lerp(Color.black, defaultTint, t));
-            yield return null;
+                yield return null;
+            }
+            skyboxMaterial.SetColor(tintProperty, defaultTint);
         }
 
-        if (skyboxMaterial.HasProperty(tintProperty))
+        _transitionCoroutine = null;
+    }
+    public void CancelTransition()
+    {
+        if (_transitionCoroutine != null)
+        {
+            StopCoroutine(_transitionCoroutine);
+            _transitionCoroutine = null;
+        }
+        if (skyboxMaterial != null && skyboxMaterial.HasProperty(tintProperty))
             skyboxMaterial.SetColor(tintProperty, defaultTint);
     }
+
 }

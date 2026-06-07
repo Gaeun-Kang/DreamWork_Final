@@ -16,7 +16,6 @@ public class DissolveStateController : MonoBehaviour
     [Header("Tween Settings")]
     [SerializeField] private float m_MoveDistance = 2f;
     [SerializeField] private float m_MoveDuration = 2f;
-    [SerializeField] private float m_AvatarDissolveDelay = 0.5f;
     [SerializeField] private float m_WallDissolveDelay = 1.5f;
     [SerializeField] private float m_WallDissolveDuration = 8f;
     [SerializeField] private float m_LightControlDelay = 4f;
@@ -61,6 +60,11 @@ public class DissolveStateController : MonoBehaviour
             m_LocalAvatar.transform.position.z + m_MoveDistance,
             m_MoveDuration
         ).SetEase(Ease.InOutSine);
+
+        m_LocalAvatar.transform.DOMoveY(
+0.5f,
+m_MoveDuration
+).SetEase(Ease.InOutSine);
 
         // Wait before avatar dissolve starts
         //await UniTask.Delay(System.TimeSpan.FromSeconds(m_AvatarDissolveDelay));
@@ -119,5 +123,6 @@ public class DissolveStateController : MonoBehaviour
         {
             m_WallMat.DisableKeyword("_EMISSION");
         });
+
     }
 }

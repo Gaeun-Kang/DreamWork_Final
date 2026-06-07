@@ -42,6 +42,7 @@ public class PortalEnter : MonoBehaviour
         }
 
         Debug.Log($"[PortalTrigger] 플레이어 포탈 진입 — Set [{currentImageSet.setID}]");
+       // FadeOut.Instance.StartFadeToBlack();
         levelTransitionManager.EnterPortal(currentImageSet);
     }
 }

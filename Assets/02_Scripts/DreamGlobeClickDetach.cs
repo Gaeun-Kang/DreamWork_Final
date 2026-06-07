@@ -25,6 +25,7 @@ public class DreamGlobeClickDetach : MonoBehaviour
 
     private bool isClicked = false;
 
+
     public void SelectGlobe()
     {
         if (isClicked) return;
@@ -42,7 +43,7 @@ public class DreamGlobeClickDetach : MonoBehaviour
             Debug.LogWarning("AlembicSyncPlayer가 연결되지 않았습니다.");
         }
 
-        // 2. 클릭한 Globe의 material을 SmallEgo에 적용
+        /* 2. 클릭한 Globe의 material을 SmallEgo에 적용
         ApplySelectedMaterialToTargets();
 
         if (splineObjectConnector != null)
@@ -53,6 +54,7 @@ public class DreamGlobeClickDetach : MonoBehaviour
         {
             StartCoroutine(PlaySplineGrowthAfterDelay());
         }
+        */
 
         // 3. 현재 월드 트랜스폼 저장
         Vector3 worldPosition = transform.position;

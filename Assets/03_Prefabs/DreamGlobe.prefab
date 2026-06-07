@@ -158,8 +158,8 @@ MonoBehaviour:
   _targetTransform: {fileID: 0}
   _maxGrabPoints: -1
   _rigidbody: {fileID: 2336544492061082068}
-  _kinematicWhileSelected: 1
-  _throwWhenUnselected: 1
+  _kinematicWhileSelected: 0
+  _throwWhenUnselected: 0
 --- !u!114 &3509314992901704985
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -173,3 +173,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RayEventProvider
   grabbable: {fileID: 7259314632056887095}
+  selectableObject: {fileID: 0}
+  magicballVisble: {fileID: 0}
+  portallMaterialController: {fileID: 0}

@@ -1,6 +1,7 @@
 using INab.Dissolve;
 using UnityEngine;
 using UnityEngine.Playables;
+using UnityEngine.Rendering;
 
 public class DissolvingEventManager : MonoBehaviour
 {
@@ -12,20 +13,25 @@ public class DissolvingEventManager : MonoBehaviour
     [Header("Dissolve Setting")]
     [SerializeField] private Material AfterDissolve;
     [SerializeField] private Dissolver mainDissolver;
-    [SerializeField] private AttachDreamGlobesToSpikeTips_Test AttachDream;
+    [SerializeField] private Volume volume;
+
+   [SerializeField] private AttachDreamGlobesToSpikeTips_Test AttachDream;
 
     [Header("Morph Setting")]
     [SerializeField] private PlayableDirector playableDirector;
     [SerializeField] private UniformMeshBaker MorphBaker;
     [SerializeField] private GameObject Morphpreafab;
   
-    private bool isPlaying = true;
+
+  
     private bool Dissolved = false;
 
     private void Awake()
     {
         if (DomeMeshrenderer == null) Debug.LogError("MeshRenderer ´©¶ô");
         playableDirector.time = 0;
+
+        
     }
 
     void OnEnable()
@@ -53,7 +59,8 @@ public class DissolvingEventManager : MonoBehaviour
         if (value < 0.8f) MorphBaker.enabled = false;
 
         if (value < 0.5f && Dissolved == false) {
-            
+
+           // vignette.active = true; 
             DomeMeshrenderer.material = AfterDissolve;
             playableDirector.Stop();
             AttachDream.AttachDreamGlobes();

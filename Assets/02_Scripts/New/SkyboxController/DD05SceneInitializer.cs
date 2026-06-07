@@ -5,7 +5,6 @@ public class DD05SceneInitializer : MonoBehaviour
     [Header("DD05 Skybox 컨트롤러")]
     [SerializeField] private DD05SkyboxController skyboxController;
 
-
     private void Awake()
     {
         if (skyboxController == null)

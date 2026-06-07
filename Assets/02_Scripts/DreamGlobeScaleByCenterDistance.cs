@@ -25,6 +25,7 @@ public class DreamGlobeScaleByCenterDistance : MonoBehaviour
     public float appearTimer;
 
     private Vector3 originalScale;
+    public bool lockScale = false;
 
     void Awake()
     {
@@ -38,6 +39,7 @@ public class DreamGlobeScaleByCenterDistance : MonoBehaviour
     void LateUpdate()
     {
         if (domeCenter == null) return;
+        if (lockScale) return;
 
         currentDistance = Vector3.Distance(domeCenter.position, transform.position);
 

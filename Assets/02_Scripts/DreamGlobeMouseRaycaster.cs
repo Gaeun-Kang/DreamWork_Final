@@ -49,7 +49,7 @@ public class DreamGlobeMouseRaycaster : MonoBehaviour
             if (globe != null)
             {
                 Debug.Log($"Ray hit globe: {globe.name}");
-                globe.SelectGlobe();
+               // globe.SelectGlobe();
                 return;
             }
         }

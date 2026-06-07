@@ -19,7 +19,6 @@ public class LevelTransition : MonoBehaviour
 
     void Awake()
     {
-        // 매니저 오브젝트가 씬이 바뀌어도 유지되도록 설정
         DontDestroyOnLoad(gameObject);
     }
 
@@ -58,7 +57,7 @@ public class LevelTransition : MonoBehaviour
     {
         if (_StaticImageSet == null) return;
 
-        var skyboxController = FindObjectOfType<DD05SkyboxController>();
+        var skyboxController = Object.FindFirstObjectByType<DD05SkyboxController>();
         if (skyboxController != null)
         {
             skyboxController.ApplyRealImageAsSkybox(_StaticImageSet);

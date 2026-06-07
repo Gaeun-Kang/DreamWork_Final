@@ -8,9 +8,8 @@ public class SceneInitiaHzer : MonoBehaviour
 
     private void Start()
     {
-        if (skyboxController == null)
-            skyboxController = FindObjectOfType<DD05SkyboxController>();
-
+        if (skyboxController == null) return;
+       
         LevelTransition.ApplyPendingImageSet(skyboxController);
     }
 }

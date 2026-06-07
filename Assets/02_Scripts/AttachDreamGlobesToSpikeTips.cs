@@ -235,4 +235,35 @@ public class AttachDreamGlobesToSpikeTips : MonoBehaviour
             $"{target.name} assigned material {newMaterial.name} with texture {texture.name}"
         );
     }
+
+
+    private void OnDrawGizmosSelected()
+    {
+        // 기준점이 되는 domeCenter가 할당되지 않았다면 자기 자신(this)의 위치를 기준으로 삼거나 그리지 않습니다.
+        Vector3 centerPosition = domeCenter != null ? domeCenter.position : transform.position;
+
+        // 1. Visible Radius (가장 안쪽 - 녹색)
+        Gizmos.color = Color.green;
+        DrawWireCircle(centerPosition, visibleRadius);
+
+        // 2. Shrink Start Radius (중간 영역 - 황색)
+        Gizmos.color = Color.yellow;
+        DrawWireCircle(centerPosition, shrinkStartRadius);
+
+        // 3. Hidden Radius (가장 바깥쪽 - 적색)
+        Gizmos.color = Color.red;
+        DrawWireCircle(centerPosition, hiddenRadius);
+    }
+
+    /// <summary>
+    /// XZ 평면(바닥) 기준으로 이쁜 원을 그려주는 보조 메서드
+    /// </summary>
+    private void DrawWireCircle(Vector3 center, float radius)
+    {
+#if UNITY_EDITOR
+        // UnityEditor 내장 기능인 Handles를 쓰면 3D 원을 아주 깔끔하게 그릴 수 있습니다.
+        UnityEditor.Handles.color = Gizmos.color;
+        UnityEditor.Handles.DrawWireDisc(center, Vector3.up, radius);
+#endif
+    }
 }
