@@ -11,14 +11,15 @@ public class DreamGlobeClickDetach_Test : MonoBehaviour
     [Header("Spline Growth")]
     public GrowthRateController splineGrowthController;
     public float splineGrowthDelay = 1.5f;
-    public SplineObjectConnectToSelectedGlobe splineObjectConnector;
+    public SplineConnectToEgo splineConnectToEgo;
 
     [Header("Options")]
-    public bool detachOnSelected = true;
     public bool hideOtherGlobesOnClick = true;
     public bool disableScaleControllerOnDetach = true;
     public string globeNamePrefix = "DreamGlobe_";
 
+
+    private Transform Selectedsphere;
     private bool isClicked = false;
 
     private void OnEnable()
@@ -35,7 +36,12 @@ public class DreamGlobeClickDetach_Test : MonoBehaviour
     {
         if (isClicked) return;
         if (obj != this.gameObject) return;
+        Selectedsphere = obj.transform;
         isClicked = true;
+
+        //Grab 이동 방지 
+        Transform isdk = transform.Find("ISDK_RayGrabInteraction");
+        if (isdk != null) isdk.gameObject.SetActive(false);
 
         Vector3 targetWorldScale = transform.lossyScale;
         Vector3 targetWorldPosition = transform.position;
@@ -57,16 +63,6 @@ public class DreamGlobeClickDetach_Test : MonoBehaviour
             }
         }
 
-        if (detachOnSelected)
-        {
-            transform.SetParent(null, true);
-
-            transform.position = targetWorldPosition;
-            transform.rotation = targetWorldRotation;
-            transform.localScale = targetWorldScale; 
-        }
-
-
         if (splineGrowthController != null)  
             StartCoroutine(PlaySplineGrowthAfterDelay());
 
@@ -75,10 +71,9 @@ public class DreamGlobeClickDetach_Test : MonoBehaviour
     {
         yield return new WaitForSeconds(splineGrowthDelay);
 
-        if (splineGrowthController != null)
+        if (splineConnectToEgo!= null)
         {
-            splineGrowthController.ResetGrowth();
-            splineGrowthController.PlayGrowth();
+            splineConnectToEgo.ConnectToGlobe(Selectedsphere);
         }
     }
 

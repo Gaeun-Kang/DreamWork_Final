@@ -12,7 +12,6 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
-  - _ALPHATEST_ON
   - _AXIS_X
   - _SURFACE_TYPE_TRANSPARENT
   - _TRIPLANAR_SPACE_OBJECT
@@ -126,7 +125,7 @@ Material:
     - _Additional_Edge: 0
     - _Additional_Edge_Pattern_Tiling: 34.58
     - _Additional_Edge_Strength: 0
-    - _AlphaClip: 1
+    - _AlphaClip: 0
     - _AlphaCutoffEnable: 1
     - _AlphaDstBlend: 0
     - _AlphaSrcBlend: 1
@@ -146,7 +145,7 @@ Material:
     - _Cull: 2
     - _CullMode: 2
     - _CullModeForward: 2
-    - _Cutoff: 0
+    - _Cutoff: 0.17
     - _DepthOffsetEnable: 0
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1

@@ -28,8 +28,7 @@ public class RayEventProvider : MonoBehaviour
             portallMaterialController = targetobj.GetComponent<PortallMaterialController>();
             magicballVisble = targetobj.GetComponent<MagicBalllVisble>();
         }
-        
-        
+       
 
     }
 

@@ -37,8 +37,8 @@ public class AttachDreamGlobesToSpikeTips_Test : MonoBehaviour
     public float maxGlobeScale = 1f;
     public float shrinkSmoothSpeed = 8f;
 
-    [Header("Spline Object Connection")]
-    public SplineObjectConnectToSelectedGlobe splineObjectConnector;
+    [Header("SplineConnectToEgo")]
+    public SplineConnectToEgo splineConnectToEgo;
 
     [Header("Spline Growth")]
     public GrowthRateController splineGrowthController;
@@ -136,10 +136,9 @@ public class AttachDreamGlobesToSpikeTips_Test : MonoBehaviour
 
             clickDetach.alembicSyncPlayer = alembicSyncPlayer;
             clickDetach.pointRoot = pointRoot;
-            clickDetach.detachOnSelected = detachOnSelected;
             clickDetach.hideOtherGlobesOnClick = hideOtherGlobesOnClick;
             clickDetach.globeNamePrefix = globeNamePrefix;
-            clickDetach.splineObjectConnector = splineObjectConnector;
+            clickDetach.splineConnectToEgo = splineConnectToEgo;
             clickDetach.splineGrowthController = splineGrowthController;
             clickDetach.splineGrowthDelay = splineGrowthDelay;
 
@@ -217,27 +216,39 @@ public class AttachDreamGlobesToSpikeTips_Test : MonoBehaviour
 
     private void ApplyTextureMaterial(GameObject target, int index)
     {
-        //추가 수정 : Index 기반으로 ImageSettingData 주입 
+        // Index 기반 ImageSetData 주입
         var sel = target.GetComponent<SelectableObject>();
         if (sel != null) sel.SetGlobeIndex(index);
 
         if (baseMaterial == null) { Debug.LogWarning("Base Material is null."); return; }
-        if (globeTextures == null || globeTextures.Length == 0) { Debug.LogWarning("Globe Textures is empty."); return; }
 
-        Texture2D texture = globeTextures[index % globeTextures.Length];
+        // ★ globeTextures 대신 ImageSetData.mainImage 사용
+        Texture2D texture = null;
+        if (sel != null)
+        {
+            ImageSetData imageSet = sel.GetImageSet();
+            if (imageSet != null) texture = imageSet.mainImage;
+        }
+
+        // ImageSetData에서 못 가져오면 기존 globeTextures로 fallback
+        if (texture == null)
+        {
+            Debug.LogWarning($"[ApplyTextureMaterial] ImageSetData에서 mainImage를 가져오지 못했습니다. globeTextures로 대체합니다.");
+            if (globeTextures == null || globeTextures.Length == 0) { Debug.LogWarning("Globe Textures is empty."); return; }
+            texture = globeTextures[index % globeTextures.Length];
+        }
+
         if (texture == null) { Debug.LogWarning($"Texture at index {index} is null."); return; }
 
         Material newMaterial = new Material(baseMaterial);
-        newMaterial.enableInstancing = true; //추가한 부분 
+        newMaterial.enableInstancing = true;
         newMaterial.name = $"DreamGlobe_Mat_{index + 1}_{texture.name}";
 
         int mainTexID = Shader.PropertyToID("_MainTex");
         int baseMapID = Shader.PropertyToID("_BaseMap");
         bool assigned = false;
-
         if (newMaterial.HasProperty(mainTexID)) { newMaterial.SetTexture(mainTexID, texture); assigned = true; }
         if (newMaterial.HasProperty(baseMapID)) { newMaterial.SetTexture(baseMapID, texture); assigned = true; }
-
         if (!assigned)
             Debug.LogWarning($"{newMaterial.name} has no _MainTex or _BaseMap property.");
 

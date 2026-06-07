@@ -3,75 +3,173 @@ using Unity.Mathematics;
 
 public class SplineConnectToEgo : MonoBehaviour
 {
-    public Transform egoSphere;
-    public Transform DreamSphere = null; //Spline이 향해야하는 방향, 초기값은 null 
+    public enum Axis { X, Y, Z }
 
-    private Quaternion initialRotation;
-    private Vector3 initialDirection;
+    [Header("References")]
+    public Transform smallEgoCenter;
+
+    [Header("Spline Axis")]
+    public Axis lengthAxis = Axis.Y;
+    public float originalLength = 1f;
+
+    [Header("Length Control")]
+    public float lengthMultiplier = 1f;
+    public float maxLength = 3f;
+    public float startOffset = 0f;
+    public float endOffset = 0f;
+
+    [Header("Globe Surface Offset")]
+    [Tooltip("Globe의 실제 Collider/Renderer 반지름을 자동으로 endOffset에 적용")]
+    public bool autoGlobeSurfaceOffset = true;
+    private float autoEndOffset = 0f;  // 런타임에 계산된 Globe 반지름
+
+    [Header("Visibility")]
+    public bool hideOnStart = true;
+
+    [Header("Update")]
+    public bool keepUpdating = true;
+
+    [Header("Growth Animation")]
+    [SerializeField] private GrowthRateController growthController;
+    public bool playGrowthOnConnect = true;
+    public bool resetGrowthOnDisconnect = true;
+
+    private Transform targetGlobe;
+    private bool connected = false;
+    private Vector3 originalScale;
 
     void Awake()
     {
+        originalScale = transform.localScale;
 
-        //if (egoSphere == null) return;
+        if (growthController == null)
+            growthController = GetComponent<GrowthRateController>();
 
-        // 처음 배치된 상태의 회전값 저장
-        initialRotation = transform.rotation;
-
-        // 처음 EgoSphere -> DreamSphere 방향 저장
-        initialDirection = DreamSphere.position - egoSphere.position;
-
-        if (initialDirection.sqrMagnitude > 0.0001f)
-            initialDirection.Normalize();
+        if (hideOnStart)
+            gameObject.SetActive(false);
     }
-
-    private void Start()
-    {
-        DreamSphereManager.Instance.OnSphereSelected += SetdreamSphere;
-    }
-
-
-    private void OnDestroy()
-    { 
-        if (DreamSphereManager.Instance != null)
-        {
-            DreamSphereManager.Instance.OnSphereSelected -= SetdreamSphere;
-        }
-    }
-
-
-    private void SetdreamSphere(Transform sphererTransform)
-    {
-        DreamSphere = sphererTransform;
-        Debug.Log("Dream Sphere 선택 완료");
-
-        if (egoSphere != null && DreamSphere != null)
-        {
-            // 타겟이 설정되는 순간의 상태를 '초기 상태'로 갱신합니다.
-            initialRotation = transform.rotation;
-            initialDirection = (DreamSphere.position - egoSphere.position).normalized;
-        }
-
-    }
-
 
     void LateUpdate()
     {
-        if (egoSphere == null || DreamSphere == null) return;
+        if (!connected || !keepUpdating) return;
+        UpdateSpline();
+    }
 
-        // 1. Spline의 pivot 위치를 EgoSphere에 맞춤
-        transform.position = egoSphere.position;
+    public void ConnectToGlobe(Transform globe)
+    {
+        if (smallEgoCenter == null)
+        {
+            Debug.LogWarning("SmallEgo Center가 비어있습니다.");
+            return;
+        }
+        if (globe == null)
+        {
+            Debug.LogWarning("Target Globe가 없습니다.");
+            return;
+        }
 
-        // 2. 현재 EgoSphere -> DreamSphere 방향
-        Vector3 currentDirection = DreamSphere.position - egoSphere.position;
+        targetGlobe = globe;
+        connected = true;
 
-        if (currentDirection.sqrMagnitude < 0.0001f) return;
+        if (autoGlobeSurfaceOffset)
+            autoEndOffset = GetGlobeRadius(globe);
 
-        currentDirection.Normalize();
+        if (!gameObject.activeSelf)
+            gameObject.SetActive(true);
 
-        // 3. 처음 방향에서 현재 방향으로 얼마나 달라졌는지만 계산
-        Quaternion deltaRotation = Quaternion.FromToRotation(initialDirection, currentDirection);
 
-        // 4. 원래 Spline의 회전값을 보존한 채 기울기만 보정
-        transform.rotation = deltaRotation * initialRotation;
+        UpdateSpline();
+        Debug.Log("[SplineConnectToEgo] 정상작동");
+        growthController.PlayGrowth();
+    }
+
+
+    private float GetGlobeRadius(Transform globe)
+    {
+        // 1순위: SphereCollider (가장 정확)
+        var sphere = globe.GetComponent<SphereCollider>();
+        if (sphere != null)
+            return sphere.radius * Mathf.Max(
+                globe.lossyScale.x,
+                globe.lossyScale.y,
+                globe.lossyScale.z);
+
+        // 2순위: Renderer bounds (Visual 기준)
+        var rend = globe.GetComponent<Renderer>();
+        if (rend != null)
+            return rend.bounds.extents.magnitude * 0.57735f; // extents는 반대각선이므로 보정
+
+        // 3순위: 수동 endOffset 폴백
+        Debug.LogWarning($"[SplineConnect] {globe.name}에서 반지름을 찾을 수 없어 endOffset({endOffset})을 사용합니다.");
+        return endOffset;
+    }
+
+    public void Disconnect()
+    {
+        connected = false;
+
+        if (resetGrowthOnDisconnect && growthController != null)
+            growthController.ResetGrowth();
+
+        if (hideOnStart)
+            gameObject.SetActive(false);
+    }
+
+    //다른 Globe로 즉시 재연결
+    public void ReconnectToGlobe(Transform newGlobe)
+    {
+        if (growthController != null)
+            growthController.ResetGrowth();
+
+        ConnectToGlobe(newGlobe);
+    }
+
+    private void UpdateSpline()
+    {
+        Vector3 start = smallEgoCenter.position;
+        Vector3 end = targetGlobe.position;
+        Vector3 direction = end - start;
+        float distance = direction.magnitude;
+
+        if (distance <= 0.0001f) return;
+        direction.Normalize();
+
+        float appliedEndOffset = autoGlobeSurfaceOffset ? autoEndOffset : endOffset;
+
+        Vector3 adjustedStart = start + direction * startOffset;
+        Vector3 adjustedEnd = end - direction * endOffset;
+        Vector3 adjustedDirection = adjustedEnd - adjustedStart;
+        float adjustedDistance = adjustedDirection.magnitude;
+
+        if (adjustedDistance <= 0.0001f) return;
+        adjustedDirection.Normalize();
+
+        float finalLength = Mathf.Min(adjustedDistance * lengthMultiplier, maxLength);
+
+        transform.position = adjustedStart;
+        RotateToDirection(adjustedDirection);
+        ApplyScale(finalLength);
+    }
+
+    private void RotateToDirection(Vector3 direction)
+    {
+        transform.rotation = lengthAxis switch
+        {
+            Axis.X => Quaternion.FromToRotation(Vector3.right, direction),
+            Axis.Y => Quaternion.FromToRotation(Vector3.up, direction),
+            _ => Quaternion.FromToRotation(Vector3.forward, direction),
+        };
+    }
+
+    private void ApplyScale(float finalLength)
+    {
+        Vector3 newScale = originalScale;
+        float scaleAlongAxis = finalLength / Mathf.Max(originalLength, 0.0001f);
+
+        if (lengthAxis == Axis.X) newScale.x = originalScale.x * scaleAlongAxis;
+        else if (lengthAxis == Axis.Y) newScale.y = originalScale.y * scaleAlongAxis;
+        else newScale.z = originalScale.z * scaleAlongAxis;
+
+        transform.localScale = newScale;
     }
 }
