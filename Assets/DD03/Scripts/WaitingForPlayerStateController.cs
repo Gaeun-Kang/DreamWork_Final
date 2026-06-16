@@ -28,6 +28,11 @@ public class WaitingForPlayerStateController : MonoBehaviour
         OVRManager.HMDUnmounted += OnHMDUnmounted;
     }
 
+    private void Start()
+    {
+        SoundManager.Instance.PlayBGM(SoundManager.GameEvent.Main_1);
+    }
+
     private void OnDestroy()
     {
         GameFlowManager.OnGameStateChanged -= HandleGameStateChanged;
@@ -169,5 +174,6 @@ public class WaitingForPlayerStateController : MonoBehaviour
         var config = m_LocalAvatar.GetAvatarConfig();
         config.ActiveView = CAPI.ovrAvatar2EntityViewFlags.ThirdPerson;
         m_LocalAvatar.ApplyConfig(config, requiresTeardown: false);
+
     }
 }

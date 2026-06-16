@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
@@ -5,6 +6,7 @@ using DG.Tweening;
 using INab.Dissolve;
 using Oculus.Skinning;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class DissolveStateController : MonoBehaviour
 {
@@ -12,6 +14,8 @@ public class DissolveStateController : MonoBehaviour
     [SerializeField] private AvatarDissolver m_AvatarDissolver;
     [SerializeField] private Dissolver m_WallDissolver;
     [SerializeField] private GameObject m_LocalAvatar;
+    [SerializeField] private PlayableDirector playableDirector;
+    [SerializeField] private UniformMeshBaker MorphBaker;
 
     [Header("Tween Settings")]
     [SerializeField] private float m_MoveDistance = 2f;
@@ -53,6 +57,22 @@ public class DissolveStateController : MonoBehaviour
         }
     }
 
+    private IEnumerator MorphSequenceCoroutine()
+    {
+        yield return new WaitForSecondsRealtime(1.0f);
+
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlaySFXByIndex(0, volume: 0.8f);
+        }
+
+        if (playableDirector != null)
+        {
+            playableDirector.time += Time.deltaTime;
+            playableDirector.Evaluate();
+        }
+    }
+
     private async UniTaskVoid StartDissolveSequence()
     {
         // Avatar starts moving immediately
@@ -80,20 +100,28 @@ m_MoveDuration
         }
 
         m_AvatarDissolver.Play(renderers);
-        
+
+        //morph 재생 
+        StartCoroutine(MorphSequenceCoroutine());
+
         //딜레이가 없는 편이 의도와 맞음
         await UniTask.Delay(System.TimeSpan.FromSeconds(m_WallDissolveDelay));
 
         // Start wall dissolve AFTER avatar dissolve begins
-        m_WallDissolver.MaterialsDissolveValue = 1.5f;
+        m_WallDissolver.MaterialsDissolveValue = 1.6f;
+        MorphBaker.enabled = false;
         DOTween.To(
             () => m_WallDissolver.MaterialsDissolveValue,
             x => m_WallDissolver.MaterialsDissolveValue = x,
-            0.45f,
+            0.33f,
             m_WallDissolveDuration
         ).SetEase(Ease.Linear);
+
+
+
         
         await UniTask.Delay(System.TimeSpan.FromSeconds(m_LightControlDelay));
+
 
         ControlLight();
     }

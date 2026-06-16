@@ -9,6 +9,7 @@ public class AttachDreamGlobesToSpikeTips_Test : MonoBehaviour
     [Header("References")]
     public Transform pointRoot;
     public Dissolver mainDissolver;
+    public EmotionParticlePlayer emotionParticlePlayer;
     public GameObject dreamGlobePrefab;
 
     [Header("Texture Materials")]

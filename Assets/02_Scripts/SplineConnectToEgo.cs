@@ -86,20 +86,20 @@ public class SplineConnectToEgo : MonoBehaviour
 
     private float GetGlobeRadius(Transform globe)
     {
-        // 1순위: SphereCollider (가장 정확)
         var sphere = globe.GetComponent<SphereCollider>();
         if (sphere != null)
-            return sphere.radius * Mathf.Max(
-                globe.lossyScale.x,
-                globe.lossyScale.y,
-                globe.lossyScale.z);
+        {
+            
+            float avgScale = (globe.lossyScale.x + globe.lossyScale.y + globe.lossyScale.z) / 3f;
+            float radius = sphere.radius * avgScale;
+            Debug.Log($"[GlobeRadius] radius={sphere.radius}, avgScale={avgScale}, 최종={radius}");
+            return radius;
+        }
 
-        // 2순위: Renderer bounds (Visual 기준)
         var rend = globe.GetComponent<Renderer>();
         if (rend != null)
-            return rend.bounds.extents.magnitude * 0.57735f; // extents는 반대각선이므로 보정
+            return rend.bounds.extents.magnitude * 0.57735f;
 
-        // 3순위: 수동 endOffset 폴백
         Debug.LogWarning($"[SplineConnect] {globe.name}에서 반지름을 찾을 수 없어 endOffset({endOffset})을 사용합니다.");
         return endOffset;
     }

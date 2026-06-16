@@ -6,6 +6,7 @@ public class DreamGlobeClickDetach_Test : MonoBehaviour
 
     [Header("References")]
     public AlembicSyncPlayer alembicSyncPlayer;
+    public EmotionParticlePlayer emotionParticlePlayer;
     public Transform pointRoot;
 
     [Header("Spline Growth")]
@@ -36,7 +37,10 @@ public class DreamGlobeClickDetach_Test : MonoBehaviour
     {
         if (isClicked) return;
         if (obj != this.gameObject) return;
+
+        SelectableObject selectable = obj.GetComponent<SelectableObject>();
         Selectedsphere = obj.transform;
+        
         isClicked = true;
 
         //Grab 이동 방지 
@@ -63,7 +67,18 @@ public class DreamGlobeClickDetach_Test : MonoBehaviour
             }
         }
 
-        if (splineGrowthController != null)  
+        if (selectable != null)
+        {
+            ImageSetData currentSetData = selectable.GetImageSet();
+
+            // 3. 받아온 데이터를 파티클 플레이어에게 토스(Toss)합니다.
+            if (emotionParticlePlayer != null)
+            {
+                emotionParticlePlayer.PlayParticleForSet(currentSetData);
+            }
+
+        }
+            if (splineGrowthController != null)  
             StartCoroutine(PlaySplineGrowthAfterDelay());
 
     }

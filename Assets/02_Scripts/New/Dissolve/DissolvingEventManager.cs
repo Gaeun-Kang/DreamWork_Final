@@ -25,6 +25,7 @@ public class DissolvingEventManager : MonoBehaviour
 
   
     private bool Dissolved = false;
+    private bool Morphing = false;
 
     private void Awake()
     {
@@ -44,25 +45,32 @@ public class DissolvingEventManager : MonoBehaviour
         mainDissolver.OnDissolve -= DissolvingEvent;
     }
 
-    //Dissolve동안 일어나는 이벤트
-    //1. Material 교체   2. PlayableDirector(Morph Event)
+
+    //1. Material 교체 및 사운드 관련 
 
     private void DissolvingEvent(float value)
     {
-
-        if (value < 1.4f)
+         /* DissolveStateController로 이동 
+        if (value < 1.25f && Morphing == false)
         {
             playableDirector.time += Time.deltaTime;
+            SoundManager.Instance.PlaySFXByIndex(0, volume: 0.8f);
             playableDirector.Evaluate();
+            Morphing = true;
+        }*/
+
+        if (value < 0.8f && Morphing == true) 
+        {
+           // MorphBaker.enabled = false;
+            SoundManager.Instance.PlaySFXByIndex(1, volume: 0.8f);
+
         }
 
-        if (value < 0.8f) MorphBaker.enabled = false;
-
-        if (value < 0.5f && Dissolved == false) {
+        if (value < 0.35f && Dissolved == false) {
 
            // vignette.active = true; 
             DomeMeshrenderer.material = AfterDissolve;
-            playableDirector.Stop();
+            SoundManager.Instance.PlayBGM(SoundManager.GameEvent.Main_2);
             AttachDream.AttachDreamGlobes();
             Dissolved = true;
 

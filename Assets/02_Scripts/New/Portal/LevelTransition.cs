@@ -39,6 +39,8 @@ public class LevelTransition : MonoBehaviour
     {
         yield return new WaitForSeconds(transitionDelay);
 
+        SoundManager.Instance.PlayBGM(SoundManager.GameEvent.World_Trans);
+
         // Additive 방식이 아닌 Single 씬 전환
         AsyncOperation op = SceneManager.LoadSceneAsync(dd05SceneName, LoadSceneMode.Single);
         op.allowSceneActivation = false;

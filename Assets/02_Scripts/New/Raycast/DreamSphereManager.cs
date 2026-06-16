@@ -28,6 +28,8 @@ public class DreamSphereManager : MonoBehaviour
     public void HoverSphereinfo(GameObject gameObject)
     {
         Debug.Log($"현재 겹쳐져있는 오브젝트:{gameObject.name}");
+        //Play Hover SFX 
+        SoundManager.Instance.PlaySFXByIndex(2, volume: 0.4f);
         OnSpherehover?.Invoke(gameObject);
     }
 
@@ -42,6 +44,8 @@ public class DreamSphereManager : MonoBehaviour
     public void ClickSphereEvent(GameObject gameobject)
     {
         Debug.Log($"[DreamSphereManager] Sphere Grabbed: {gameobject.name}");
+        //Click Event
+        SoundManager.Instance.PlaySFXByIndex(3, volume: 0.4f);
         OnSphereClicked?.Invoke(gameobject);
     }
 
