@@ -6,7 +6,7 @@ public class DreamGlobeClickDetach_Test : MonoBehaviour
 
     [Header("References")]
     public AlembicSyncPlayer alembicSyncPlayer;
-    public EmotionParticlePlayer emotionParticlePlayer;
+
     public Transform pointRoot;
 
     [Header("Spline Growth")]
@@ -67,19 +67,12 @@ public class DreamGlobeClickDetach_Test : MonoBehaviour
             }
         }
 
-        if (selectable != null)
-        {
-            ImageSetData currentSetData = selectable.GetImageSet();
-
-            // 3. 받아온 데이터를 파티클 플레이어에게 토스(Toss)합니다.
-            if (emotionParticlePlayer != null)
-            {
-                emotionParticlePlayer.PlayParticleForSet(currentSetData);
-            }
-
-        }
             if (splineGrowthController != null)  
             StartCoroutine(PlaySplineGrowthAfterDelay());
+
+            ImageSetData currentSetData = selectable.GetImageSet();
+            EmotionParticlePlayer.Instance.PlayParticleForSet(currentSetData);
+            Debug.Log("파티클 재생 실시");
 
     }
     private IEnumerator PlaySplineGrowthAfterDelay()

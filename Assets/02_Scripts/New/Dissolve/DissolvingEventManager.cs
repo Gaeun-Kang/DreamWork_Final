@@ -7,22 +7,20 @@ public class DissolvingEventManager : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
-    [Header("Dome Mesh")]
+    [Header("Mesh")]
     [SerializeField] private MeshRenderer DomeMeshrenderer;
+    [SerializeField] private MeshRenderer Stairrenderer;
+
 
     [Header("Dissolve Setting")]
-    [SerializeField] private Material AfterDissolve;
+    [SerializeField] private Material AfterDissolveDome;
+    [SerializeField] private Material AfterDissolveStair;
     [SerializeField] private Dissolver mainDissolver;
     [SerializeField] private Volume volume;
 
    [SerializeField] private AttachDreamGlobesToSpikeTips_Test AttachDream;
 
-    [Header("Morph Setting")]
-    [SerializeField] private PlayableDirector playableDirector;
-    [SerializeField] private UniformMeshBaker MorphBaker;
-    [SerializeField] private GameObject Morphpreafab;
   
-
   
     private bool Dissolved = false;
     private bool Morphing = false;
@@ -30,9 +28,7 @@ public class DissolvingEventManager : MonoBehaviour
     private void Awake()
     {
         if (DomeMeshrenderer == null) Debug.LogError("MeshRenderer ´©¶ô");
-        playableDirector.time = 0;
 
-        
     }
 
     void OnEnable()
@@ -69,7 +65,8 @@ public class DissolvingEventManager : MonoBehaviour
         if (value < 0.35f && Dissolved == false) {
 
            // vignette.active = true; 
-            DomeMeshrenderer.material = AfterDissolve;
+            DomeMeshrenderer.material = AfterDissolveDome;
+            Stairrenderer.material = AfterDissolveStair;
             SoundManager.Instance.PlayBGM(SoundManager.GameEvent.Main_2);
             AttachDream.AttachDreamGlobes();
             Dissolved = true;

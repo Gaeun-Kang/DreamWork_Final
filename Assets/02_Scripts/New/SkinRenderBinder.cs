@@ -11,12 +11,12 @@ public class SkinRenderBinder : MonoBehaviour
 
     private void OnEnable()
     {
-        OvrAvatarUnitySkinnedRenderable.OnSkinnedRendererReady += AssignToVFX;
+       // OvrAvatarUnitySkinnedRenderable.OnSkinnedRendererReady += AssignToVFX;
     }
 
     private void OnDisable()
     {
-       OvrAvatarUnitySkinnedRenderable.OnSkinnedRendererReady -= AssignToVFX;
+    //   OvrAvatarUnitySkinnedRenderable.OnSkinnedRendererReady -= AssignToVFX;
     }
 
     private void AssignToVFX(SkinnedMeshRenderer skinnedMesh)

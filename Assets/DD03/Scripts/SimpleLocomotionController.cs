@@ -1,4 +1,5 @@
 using Oculus.Interaction;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class SimpleLocomotionController : MonoBehaviour
@@ -6,45 +7,31 @@ public class SimpleLocomotionController : MonoBehaviour
     [Header("Settings")]
     [SerializeField] private Rigidbody rb;
     [SerializeField] private float moveSpeed = 2.0f;
-    [SerializeField] private float turnSpeed = 90f;   // degrees per second
- 
+
     [Header("Ray Interaction")]
-    [SerializeField] private RayInteractor rayInteractor; 
+    [SerializeField] private RayInteractor rayInteractor;
 
     private float moveInput;
     private bool isMoving = false;
 
-    //simple 이동 스크립트, 현재 오른쪽 컨트롤러만 사용하기로 협의 
+    // 왼쪽 컨트롤러 명시
+    private OVRInput.Controller leftController = OVRInput.Controller.LTouch;
 
-
-    void BtnDown()
-    {
-        if(OVRInput.GetDown(OVRInput.Button.One))
-        {
-            //A 버튼 UI 띄우기 
-
-        }
-
-        if (OVRInput.GetDown(OVRInput.Button.Two))
-        {
-            //B 버튼 UI 띄우기 
-
-        }
-
-    }
     private void Update()
     {
-        moveInput = OVRInput.Get(OVRInput.Axis2D.SecondaryThumbstick).y;
-
+        // 1. 이동 인풋 처리
+        moveInput = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick, leftController).y;
         bool wasMoving = isMoving;
         isMoving = Mathf.Abs(moveInput) > 0.1f;
 
-        // 상태 변화 시에만 토글 (매 프레임 SetActive 방지)
+        // 상태 변화 시에만 토글
         if (wasMoving != isMoving)
         {
             SetRayActive(!isMoving);
         }
+
     }
+
 
     private void SetRayActive(bool active)
     {
@@ -55,6 +42,9 @@ public class SimpleLocomotionController : MonoBehaviour
     private void FixedUpdate()
     {
         if (!isMoving) return;
+
+        // PlayerRigRef나 CenterEyeAnchor가 Null인지 체크 필요
+        if (PlayerRigRef.Instance == null || PlayerRigRef.Instance.CenterEyeAnchor == null) return;
 
         Vector3 forward = new Vector3(
             PlayerRigRef.Instance.CenterEyeAnchor.forward.x, 0,

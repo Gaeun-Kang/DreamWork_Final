@@ -176,7 +176,7 @@
       "dependencies": {}
     },
     "com.unity.formats.alembic": {
-      "version": "2.4.4",
+      "version": "2.4.5",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -382,7 +382,7 @@
     },
     "com.unity.xr.core-utils": {
       "version": "2.5.3",
-      "depth": 2,
+      "depth": 1,
       "source": "registry",
       "dependencies": {
         "com.unity.modules.xr": "1.0.0"
@@ -419,6 +419,19 @@
       "dependencies": {
         "com.unity.xr.management": "4.4.0",
         "com.unity.modules.androidjni": "1.0.0"
+      },
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.xr.openxr": {
+      "version": "1.17.1",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.inputsystem": "1.6.3",
+        "com.unity.xr.core-utils": "2.3.0",
+        "com.unity.xr.management": "4.4.0",
+        "com.unity.modules.androidjni": "1.0.0",
+        "com.unity.xr.legacyinputhelpers": "2.1.2"
       },
       "url": "https://packages.unity.com"
     },
