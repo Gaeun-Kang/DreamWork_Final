@@ -16,10 +16,10 @@ MonoBehaviour:
   Shader: {fileID: 4800000, guid: 071ddc3372b7f41df87ec22aa332ba2b, type: 3}
   NameTextureParameter_baseColorTexture: _MainTex
   NameTextureParameter_diffuseTexture: _MainTex
-  NameTextureParameter_metallicRoughnessTexture: _MetallicGlossMap
-  NameTextureParameter_specularGlossiness: _Specular
-  NameTextureParameter_normalTexture: _BumpMap
-  NameTextureParameter_occlusionTexture: _OcclusionMap
+  NameTextureParameter_metallicRoughnessTexture: 
+  NameTextureParameter_specularGlossiness: 
+  NameTextureParameter_normalTexture: 
+  NameTextureParameter_occlusionTexture: 
   NameTextureParameter_emissiveTexture: _EmissiveMap
   NameTextureParameter_flowTexture: _FlowMap
   NameColorParameter_BaseColorFactor: _Color

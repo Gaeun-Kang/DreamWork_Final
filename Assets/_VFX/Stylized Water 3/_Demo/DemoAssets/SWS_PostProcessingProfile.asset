@@ -44,7 +44,7 @@ MonoBehaviour:
     dimension: 1
   contribution:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 0.623
 --- !u!114 &-375731980102376670
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -132,7 +132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97c23e3b12dc18c42a140437e53d3951, type: 3}
   m_Name: Tonemapping
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   mode:
     m_OverrideState: 1
     m_Value: 1
@@ -177,11 +177,11 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: 1
   threshold:
-    m_OverrideState: 1
-    m_Value: 0.27
+    m_OverrideState: 0
+    m_Value: 4.5
   intensity:
     m_OverrideState: 1
-    m_Value: 0.87
+    m_Value: 5.1
   scatter:
     m_OverrideState: 0
     m_Value: 0.7
@@ -192,7 +192,7 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: {r: 0.88103724, g: 0.8962264, b: 0.7398095, a: 1}
   highQualityFiltering:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 1
   downscale:
     m_OverrideState: 0
