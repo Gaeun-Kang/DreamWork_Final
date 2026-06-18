@@ -3,14 +3,10 @@ using Oculus.Interaction.Input;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LeftHandControllerUI : MonoBehaviour 
+public class LeftHandControllerUI : MonoBehaviour
 {
-    public static SimpleLocomotionController Instance { get; private set; }
-
-    [Header("Settings")]
-    [SerializeField] private Rigidbody rb;
-    [SerializeField] private float moveSpeed = 2.0f;
-    [SerializeField] private float turnSpeed = 90f;   // degrees per second
+    // 클래스 이름과 싱글톤 인스턴스 타입을 일치시켜 에러 방지
+    public static LeftHandControllerUI Instance { get; private set; }
 
     [Header("Ray Interaction")]
     [SerializeField] private RayInteractor rayInteractor;
@@ -30,47 +26,34 @@ public class LeftHandControllerUI : MonoBehaviour
     [Tooltip("유저 눈앞에 UI를 배치할 거리 (미터 단위)")]
     [SerializeField] private float uiSpawnDistance = 1.5f;
 
-    private float moveInput;
-    private bool isMoving = false;
     private OVRInput.Controller leftController = OVRInput.Controller.LTouch;
 
     private void Awake()
     {
-        // --- DontDestroyOnLoad 및 싱글톤 세팅 ---
+        // --- DDOL 및 싱글톤 구조화 ---
         if (Instance == null)
         {
-        
-            // 이 오브젝트와 자식 오브젝트(UI 포함)들을 다른 씬에서도 유지
-            DontDestroyOnLoad(gameObject);
+            Instance = this;
+            // 최상위 플레이어 부모 오브젝트를 찾아 DontDestroyOnLoad 처리
+            DontDestroyOnLoad(transform.root.gameObject);
         }
         else
         {
-            // 다른 씬에서 중복으로 생성된 매니저가 있다면 즉시 파괴
-            Destroy(gameObject);
+            // 중복 생성 방지: 이미 인스턴스가 있다면 새로 생긴 플레이어 세트를 통째로 파괴
+            Destroy(transform.root.gameObject);
             return;
         }
     }
 
     private void Update()
     {
-        // 1. 이동 input 처리
-        moveInput = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick, leftController).y;
-        bool wasMoving = isMoving;
-        isMoving = Mathf.Abs(moveInput) > 0.1f;
-
-        // 상태 변화 시에만 레이 활성화/비활성화 토글
-        if (wasMoving != isMoving)
-        {
-            SetRayActive(!isMoving);
-        }
-
-        // 2. 버튼 input 처리
+        // 오직 버튼 입력(X, Y) 처리만 수행합니다.
         HandleButtonInputs();
     }
 
     private void HandleButtonInputs()
     {
-   
+        // --- X 버튼 처리 ---
         if (OVRInput.GetDown(OVRInput.RawButton.X, leftController))
         {
             if (SoundManager.Instance != null)
@@ -90,7 +73,7 @@ public class LeftHandControllerUI : MonoBehaviour
             }
         }
 
-
+        // --- Y 버튼 처리 ---
         if (OVRInput.GetDown(OVRInput.RawButton.Y, leftController))
         {
             if (SoundManager.Instance != null)
@@ -107,7 +90,6 @@ public class LeftHandControllerUI : MonoBehaviour
     /// </summary>
     private void CloseAllUI(GameObject exception = null)
     {
-        // 매개변수로 들어온 exception(현재 켜려는 UI)을 제외한 나머지를 전부 비활성화
         if (exitUiObject != null && exitUiObject != exception) exitUiObject.SetActive(false);
         if (returnUiObject != null && returnUiObject != exception) returnUiObject.SetActive(false);
         if (restartUiObject != null && restartUiObject != exception) restartUiObject.SetActive(false);
@@ -120,71 +102,74 @@ public class LeftHandControllerUI : MonoBehaviour
     {
         if (targetUi == null)
         {
-            Debug.LogWarning("[Movement] 요청된 UI 오브젝트가 할당되지 않았습니다.");
+            Debug.LogWarning("[LeftHandControllerUI] 요청된 UI 오브젝트가 할당되지 않았습니다.");
             return;
         }
 
-        // 다음으로 변경할 상태값 계산
         bool nextState = !targetUi.activeSelf;
 
         if (nextState == true)
         {
-            // 1. UI를 새로 키는 상황이라면 다른 모든 UI를 먼저 꺼버림 (중복 방지 핵심)
+            // 1. UI 중복 켜짐 방지
             CloseAllUI(exception: targetUi);
 
-            // 2. 켜지는 순간 유저의 현재 시야 앞으로 텔레포트 및 정렬
+            // 2. UI 조준을 위해 레이를 강제로 켜줌
+            SetRayActive(true);
+
+            // 3. 플레이어 VR 카메라 정면에 UI 배치 및 정렬
             if (PlayerRigRef.Instance != null && PlayerRigRef.Instance.CenterEyeAnchor != null)
             {
                 Transform camTransform = PlayerRigRef.Instance.CenterEyeAnchor;
 
-                // 시야 정면 거리 계산
+                // 시야 정면 기준 배치
                 Vector3 targetPosition = camTransform.position + (camTransform.forward * uiSpawnDistance);
                 targetUi.transform.position = targetPosition;
 
-                // 유저를 똑바로 바라보도록 회전 보정
+                // 유저를 똑바로 바라보도록 회전 보정 (정면 렌더링)
                 targetUi.transform.LookAt(camTransform.position);
                 targetUi.transform.Rotate(0, 180f, 0);
-
-
             }
         }
+        else
+        {
+            // UI가 꺼질 때는 레이를 같이 꺼주어 평소 화면을 깔끔하게 유지합니다.
+            // 만약 분리된 이동 스크립트 쪽에서 레이 제어를 다 하도록 바꾸셨다면 이 줄은 지우셔도 됩니다.
+            SetRayActive(false);
+        }
 
-        // 3. 계산된 최종 상태 적용 (켜거나 끄기)
         targetUi.SetActive(nextState);
     }
 
-    private void SetRayActive(bool active)
+    /// <summary>
+    /// 오큘러스 레이 인터랙터 컴포넌트 및 오브젝트를 제어하는 함수
+    /// </summary>
+    public void SetRayActive(bool active)
     {
         if (rayInteractor == null) return;
-        rayInteractor.gameObject.SetActive(active);
+
+        // 컴포넌트 자체 활성화 비활성화
+        rayInteractor.enabled = active;
+
+        // 레이 비주얼 오브젝트 토글
+        if (rayInteractor.gameObject != this.gameObject)
+        {
+            rayInteractor.gameObject.SetActive(active);
+        }
     }
 
-    private void FixedUpdate()
-    {
-        if (!isMoving) return;
-
-        if (PlayerRigRef.Instance == null || PlayerRigRef.Instance.CenterEyeAnchor == null) return;
-
-        Vector3 forward = new Vector3(
-            PlayerRigRef.Instance.CenterEyeAnchor.forward.x, 0,
-            PlayerRigRef.Instance.CenterEyeAnchor.forward.z
-        ).normalized;
-
-        Vector3 move = forward * moveInput * moveSpeed * Time.fixedDeltaTime;
-        rb.MovePosition(rb.position + move);
-    }
-
+    // ==========================================
+    //   UI Canvas 내 Button 연동용 Public 함수들
+    // ==========================================
 
     public void TriggerRestart()
     {
-        CloseAllUI(); // 재시작 전 UI 정리
+        CloseAllUI();
         string currentSceneName = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(currentSceneName);
     }
 
     public void TriggerExitGame()
     {
- 
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else
@@ -194,8 +179,7 @@ public class LeftHandControllerUI : MonoBehaviour
 
     public void LoadPreviousScene()
     {
-        CloseAllUI(); // 씬 이동 전 UI 정리
+        CloseAllUI();
         SceneManager.LoadScene("MainScene_DD03");
     }
-
 }

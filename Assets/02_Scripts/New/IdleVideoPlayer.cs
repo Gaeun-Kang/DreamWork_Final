@@ -57,7 +57,12 @@ public class IdleVideoPlayer : MonoBehaviour
         _idleTimer = 0f;
 
         if (videoUIObject != null) videoUIObject.SetActive(true); // 오브젝트 출현
-        if (videoPlayer != null) videoPlayer.Play();
+
+        if (videoPlayer != null)
+        {
+            videoPlayer.frame = 0; // 켜지는 순간 무조건 0번 프레임부터 시작하도록 대입
+            videoPlayer.Play();
+        }
     }
 
     private void ResetTimerAndHideVideo()
@@ -70,20 +75,13 @@ public class IdleVideoPlayer : MonoBehaviour
 
             if (videoPlayer != null)
             {
-                // 1. 영상을 일시정지하고
-                videoPlayer.Pause();
-
-                // 2. 재생 시점을 강제로 0번째 프레임(처음)으로 되돌립니다.
-                videoPlayer.frame = 0;
-
-                // 3. 완전히 정지 상태로 만듭니다.
-                videoPlayer.Stop();
+                videoPlayer.Stop(); // 여기서는 멈추기만 하고, 프레임 리셋은 켜질 때 담당하도록 분리
             }
 
             if (videoUIObject != null)
             {
-                videoUIObject.SetActive(false); // UI를 완전히 숨김
+                videoUIObject.SetActive(false);
             }
         }
     }
-  }
+}
