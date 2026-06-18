@@ -6,15 +6,22 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(VideoPlayer))]
 public class IdleVideoPlayer : MonoBehaviour
 {
+    [Header("UI & Video Settings")]
+    [SerializeField] private GameObject videoUIObject; // 전체 화면을 덮고 있는 Raw Image 또는 Canvas 오브젝트
     [SerializeField] private VideoPlayer videoPlayer;
-    [SerializeField] private float idleThreshold = 60f; // 1분 (초 단위)
+    [SerializeField] private float idleThreshold = 60f; // 1분
 
     private float _idleTimer = 0f;
-    private bool _isVideoPlaying = false;
+    private bool _isVideoActive = false;
+
+    void Start()
+    {
+        if (videoUIObject != null) videoUIObject.SetActive(false);
+        Screen.SetResolution(Screen.currentResolution.width, Screen.currentResolution.height, FullScreenMode.FullScreenWindow);
+    }
 
     void OnEnable()
     {
-        // 어떤 입력 액션이든 발생하면 타이머를 리셋하는 이벤트 연결
         InputSystem.onActionChange += OnActionChange;
     }
 
@@ -25,49 +32,58 @@ public class IdleVideoPlayer : MonoBehaviour
 
     void Update()
     {
-        // 비디오가 이미 재생 중이라면 타이머를 더 이상 누적하지 않음
-        if (_isVideoPlaying) return;
+        if (_isVideoActive) return;
 
         _idleTimer += Time.deltaTime;
 
         if (_idleTimer >= idleThreshold)
         {
-            PlayIdleVideo();
+            ShowVideo();
         }
     }
 
     private void OnActionChange(object obj, InputActionChange change)
     {
-        // 사용자가 버튼을 누르거나 컨트롤러/HMD를 움직이는 등 '수행(Performed)' 상태일 때
-        if (change == InputActionChange.ActionPerformed)
+        if (change == InputActionChange.ActionStarted) 
         {
-            ResetIdleTimer();
+            // 입력이 들어오면 타이머를 리셋하고 영상을 완전히 숨김
+            ResetTimerAndHideVideo();
         }
     }
 
-    private void PlayIdleVideo()
+    private void ShowVideo()
     {
-        if (videoPlayer != null && !videoPlayer.isPlaying)
-        {
-            _isVideoPlaying = true;
-            videoPlayer.Play();
-            Debug.Log("사용자 입력 없음: 대기 비디오 재생");
-        }
+        _isVideoActive = true;
+        _idleTimer = 0f;
+
+        if (videoUIObject != null) videoUIObject.SetActive(true); // 오브젝트 출현
+        if (videoPlayer != null) videoPlayer.Play();
     }
 
-    private void ResetIdleTimer()
+    private void ResetTimerAndHideVideo()
     {
         _idleTimer = 0f;
 
-        // 비디오가 재생 중이었다면 입력을 감지한 순간 정지/숨김
-        if (_isVideoPlaying)
+        if (_isVideoActive)
         {
-            _isVideoPlaying = false;
-            if (videoPlayer != null && videoPlayer.isPlaying)
+            _isVideoActive = false;
+
+            if (videoPlayer != null)
             {
+                // 1. 영상을 일시정지하고
+                videoPlayer.Pause();
+
+                // 2. 재생 시점을 강제로 0번째 프레임(처음)으로 되돌립니다.
+                videoPlayer.frame = 0;
+
+                // 3. 완전히 정지 상태로 만듭니다.
                 videoPlayer.Stop();
-                Debug.Log("사용자 입력 감지: 비디오 정지");
+            }
+
+            if (videoUIObject != null)
+            {
+                videoUIObject.SetActive(false); // UI를 완전히 숨김
             }
         }
     }
-}
+  }
