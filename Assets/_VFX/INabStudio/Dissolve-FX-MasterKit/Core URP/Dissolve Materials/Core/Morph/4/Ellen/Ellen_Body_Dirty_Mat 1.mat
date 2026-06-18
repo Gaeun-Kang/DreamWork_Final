@@ -29,11 +29,11 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _ALPHATEST_ON
+  - _AXIS_Y
   - _TRIPLANAR_SPACE_OBJECT
   - _USE_DISSOLVE
   - _USE_TRIPLANAR_UVS
   m_InvalidKeywords:
-  - _AXIS_Y
   - _DISABLE_SSR_TRANSPARENT
   - _EMISSION
   m_LightmapFlags: 7
@@ -161,7 +161,7 @@ Material:
     - _DiffusePosterizeOffset: 0
     - _DiffusePosterizePower: 1
     - _DiffusePosterizeSteps: 3
-    - _DissolveAmount: 0.49
+    - _DissolveAmount: 1.04
     - _DoubleSidedEnable: 0
     - _DoubleSidedGIMode: 0
     - _DoubleSidedNormalMode: 2
