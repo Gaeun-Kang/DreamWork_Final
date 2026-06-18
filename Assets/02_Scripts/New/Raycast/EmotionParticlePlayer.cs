@@ -1,8 +1,7 @@
 using UnityEngine;
 
-public class EmotionParticlePlayer : MonoBehaviour 
+public class EmotionParticlePlayer : MonoBehaviour
 {
-
     [Header("Emotion Particle System")]
     [Tooltip("01~09번 세트에 대응하는 Happy 파티클")]
     [SerializeField] private GameObject happyParticle;
@@ -17,13 +16,15 @@ public class EmotionParticlePlayer : MonoBehaviour
 
     public static EmotionParticlePlayer Instance { get; private set; }
 
-
-     private void Awake()
+    private void Awake()
     {
         if (Instance != null && Instance != this) { Destroy(gameObject); return; }
         Instance = this;
 
-        happyParticle.gameObject.SetActive(false);
+        // 시작할 때 모든 파티클 오브젝트를 꺼둡니다.
+        happyParticle.SetActive(false);
+        sadParticle.SetActive(false);
+        nervousParticle.SetActive(false);
     }
 
     public void PlayParticleForSet(ImageSetData imageSet)
@@ -47,6 +48,7 @@ public class EmotionParticlePlayer : MonoBehaviour
             return;
         }
 
+        // 컴포넌트 자체의 재생/정지 제어
         if (_currentParticle != null && _currentParticle != target)
             _currentParticle.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
 
@@ -56,31 +58,36 @@ public class EmotionParticlePlayer : MonoBehaviour
 
         Debug.Log($"[EmotionParticlePlayer] setID [{imageSet.setID}] → {target.name} 재생");
     }
+
     private ParticleSystem GetParticleByID(int id)
     {
+        // 1. 새로운 감정이 정해지기 전에 기존의 모든 오브젝트를 일단 끕니다.
+        happyParticle.SetActive(false);
+        sadParticle.SetActive(false);
+        nervousParticle.SetActive(false);
+
+        // 2. ID 조건에 맞는 오브젝트만 켜고, 해당 ParticleSystem 컴포넌트를 반환합니다.
         if (id >= 1 && id <= 9)
         {
             SoundManager.Instance.PlayBGM(SoundManager.GameEvent.Dream_Happy);
-            happyParticle.gameObject.SetActive(true);
-
+            happyParticle.SetActive(true);
+            return happyParticle.GetComponent<ParticleSystem>();
         }
 
-        if (id >= 10 && id <= 18) 
+        if (id >= 10 && id <= 18)
         {
-        SoundManager.Instance.PlayBGM(SoundManager.GameEvent.Dream_Sad);
-
-            sadParticle.gameObject.SetActive(true);
-
-
+            SoundManager.Instance.PlayBGM(SoundManager.GameEvent.Dream_Sad);
+            sadParticle.SetActive(true);
+            return sadParticle.GetComponent<ParticleSystem>();
         }
 
-        if (id >= 19 && id <= 26) 
+        if (id >= 19 && id <= 26)
         {
-         SoundManager.Instance.PlayBGM(SoundManager.GameEvent.Dream_Nervo);
-            nervousParticle.gameObject.SetActive(true);
-
-
+            SoundManager.Instance.PlayBGM(SoundManager.GameEvent.Dream_Nervo);
+            nervousParticle.SetActive(true);
+            return nervousParticle.GetComponent<ParticleSystem>();
         }
-        return null;
+
+        return null; // 범위에서 벗어난 ID일 경우 null 반환
     }
 }

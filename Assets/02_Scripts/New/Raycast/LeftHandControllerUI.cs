@@ -8,6 +8,10 @@ public class LeftHandControllerUI : MonoBehaviour
     // 클래스 이름과 싱글톤 인스턴스 타입을 일치시켜 에러 방지
     public static LeftHandControllerUI Instance { get; private set; }
 
+    [Header("Canvas Setting")]
+    [Tooltip("상호작용할 최상위 부모 Canvas 오브젝트 (평소엔 꺼두고 UI 팝업 시 켜짐)")]
+    [SerializeField] private GameObject controllerUiCanvas;
+
     [Header("Ray Interaction")]
     [SerializeField] private RayInteractor rayInteractor;
 
@@ -42,6 +46,16 @@ public class LeftHandControllerUI : MonoBehaviour
             // 중복 생성 방지: 이미 인스턴스가 있다면 새로 생긴 플레이어 세트를 통째로 파괴
             Destroy(transform.root.gameObject);
             return;
+        }
+    }
+
+    private void Start()
+    {
+        // 시작할 때 모든 UI 창과 메인 캔버스를 꺼서 방해되지 않도록 합니다.
+        CloseAllUI();
+        if (controllerUiCanvas != null)
+        {
+            controllerUiCanvas.SetActive(false);
         }
     }
 
@@ -85,9 +99,7 @@ public class LeftHandControllerUI : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// 모든 UI 창을 강제로 보이지 않게 꺼버리는 함수
-    /// </summary>
+ 
     private void CloseAllUI(GameObject exception = null)
     {
         if (exitUiObject != null && exitUiObject != exception) exitUiObject.SetActive(false);
@@ -96,7 +108,7 @@ public class LeftHandControllerUI : MonoBehaviour
     }
 
     /// <summary>
-    /// UI를 토글하며, 켜질 때 다른 UI를 다 끄고 유저 눈앞으로 정렬하는 함수
+    /// UI를 토글하며, 켜질 때 캔버스를 활성화하고 유저 눈앞으로 정렬하는 함수
     /// </summary>
     private void ToggleAndPositionUI(GameObject targetUi)
     {
@@ -106,43 +118,63 @@ public class LeftHandControllerUI : MonoBehaviour
             return;
         }
 
-        bool nextState = !targetUi.activeSelf;
+        // targetUi가 현재 켜져있는지 여부를 판단
+        bool isUiCurrentlyActive = targetUi.activeSelf;
+
+        // 만약 메인 캔버스 자체가 꺼져있었다면, 무조건 UI가 꺼져있던 것으로 간주합니다.
+        if (controllerUiCanvas != null && !controllerUiCanvas.activeSelf)
+        {
+            isUiCurrentlyActive = false;
+        }
+
+        bool nextState = !isUiCurrentlyActive;
 
         if (nextState == true)
         {
-            // 1. UI 중복 켜짐 방지
+            // 1. 하위 UI 중복 켜짐 방지
             CloseAllUI(exception: targetUi);
+            targetUi.SetActive(true);
 
-            // 2. UI 조준을 위해 레이를 강제로 켜줌
+            // 2. 평소에 꺼두었던 메인 캔버스 오브젝트를 먼저 활성화합니다.
+            if (controllerUiCanvas != null)
+            {
+                controllerUiCanvas.SetActive(true);
+            }
+
+            // 3. UI 조준을 위해 레이를 강제로 켜줌
             SetRayActive(true);
 
-            // 3. 플레이어 VR 카메라 정면에 UI 배치 및 정렬
+            // 4. 최상위 부모(Canvas)를 플레이어 VR 카메라 정면에 배치 및 정렬
+            // 자식 UI들이 움직이는 것이 아니라 캔버스 전체가 움직여야 인터랙션(OVRRaycaster 등)이 깨지지 않습니다.
+            GameObject objectToMove = controllerUiCanvas != null ? controllerUiCanvas : gameObject;
+
             if (PlayerRigRef.Instance != null && PlayerRigRef.Instance.CenterEyeAnchor != null)
             {
                 Transform camTransform = PlayerRigRef.Instance.CenterEyeAnchor;
 
                 // 시야 정면 기준 배치
                 Vector3 targetPosition = camTransform.position + (camTransform.forward * uiSpawnDistance);
-                targetUi.transform.position = targetPosition;
+                objectToMove.transform.position = targetPosition;
 
                 // 유저를 똑바로 바라보도록 회전 보정 (정면 렌더링)
-                targetUi.transform.LookAt(camTransform.position);
-                targetUi.transform.Rotate(0, 180f, 0);
+                objectToMove.transform.LookAt(camTransform.position);
+                objectToMove.transform.Rotate(0, 180f, 0);
             }
         }
         else
         {
-            // UI가 꺼질 때는 레이를 같이 꺼주어 평소 화면을 깔끔하게 유지합니다.
-            // 만약 분리된 이동 스크립트 쪽에서 레이 제어를 다 하도록 바꾸셨다면 이 줄은 지우셔도 됩니다.
+            // UI를 끌 때는 개별 UI 창을 끄고, 메인 캔버스 전체도 함께 비활성화합니다.
+            targetUi.SetActive(false);
+
+            if (controllerUiCanvas != null)
+            {
+                controllerUiCanvas.SetActive(false);
+            }
+
             SetRayActive(false);
         }
-
-        targetUi.SetActive(nextState);
     }
 
-    /// <summary>
-    /// 오큘러스 레이 인터랙터 컴포넌트 및 오브젝트를 제어하는 함수
-    /// </summary>
     public void SetRayActive(bool active)
     {
         if (rayInteractor == null) return;
@@ -157,13 +189,11 @@ public class LeftHandControllerUI : MonoBehaviour
         }
     }
 
-    // ==========================================
-    //   UI Canvas 내 Button 연동용 Public 함수들
-    // ==========================================
-
     public void TriggerRestart()
     {
         CloseAllUI();
+        if (controllerUiCanvas != null) controllerUiCanvas.SetActive(false);
+
         string currentSceneName = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(currentSceneName);
     }
@@ -180,6 +210,8 @@ public class LeftHandControllerUI : MonoBehaviour
     public void LoadPreviousScene()
     {
         CloseAllUI();
+        if (controllerUiCanvas != null) controllerUiCanvas.SetActive(false);
+
         SceneManager.LoadScene("MainScene_DD03");
     }
 }
