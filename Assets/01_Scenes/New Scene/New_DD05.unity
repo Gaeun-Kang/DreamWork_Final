@@ -1131,7 +1131,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2021794101
 Transform:
   m_ObjectHideFlags: 0
@@ -1156,10 +1156,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2021794100}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 655363e8fe943014fbac54e18f2850c2, type: 3}
+  m_Script: {fileID: 11500000, guid: 15a95965c1ae7294383cc1fe884fec91, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::FadeOut
-  fadeDuration: 15
+  m_EditorClassIdentifier: Assembly-CSharp::AutoSceneReturner
+  waitDuration: 15
+  fadeDuration: 3
 --- !u!1 &2036450383
 GameObject:
   m_ObjectHideFlags: 0
