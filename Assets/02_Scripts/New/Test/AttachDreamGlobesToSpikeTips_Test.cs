@@ -212,7 +212,7 @@ public class AttachDreamGlobesToSpikeTips_Test : MonoBehaviour
         }
 
         Debug.Log($"[ISDK] {globe.name} 전체 재초기화 완료");
-        VRHandRayController.Instance.RequestRayReboot();
+      
     }
     private void ApplyTextureMaterial(GameObject target, int index)
     {

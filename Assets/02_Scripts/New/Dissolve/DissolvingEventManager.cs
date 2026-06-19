@@ -10,11 +10,14 @@ public class DissolvingEventManager : MonoBehaviour
     [Header("Mesh")]
     [SerializeField] private MeshRenderer DomeMeshrenderer;
     [SerializeField] private MeshRenderer Stairrenderer;
+    [SerializeField] private MeshRenderer DwonStairrender;
+
 
 
     [Header("Dissolve Setting")]
     [SerializeField] private Material AfterDissolveDome;
     [SerializeField] private Material AfterDissolveStair;
+    [SerializeField] private Material AfterDissolveDownStair;
     [SerializeField] private Dissolver mainDissolver;
     [SerializeField] private Volume volume;
 
@@ -67,6 +70,7 @@ public class DissolvingEventManager : MonoBehaviour
            // vignette.active = true; 
             DomeMeshrenderer.material = AfterDissolveDome;
             Stairrenderer.material = AfterDissolveStair;
+            DwonStairrender.material = AfterDissolveDownStair;
             SoundManager.Instance.PlayBGM(SoundManager.GameEvent.Main_2);
             AttachDream.AttachDreamGlobes();
             Dissolved = true;

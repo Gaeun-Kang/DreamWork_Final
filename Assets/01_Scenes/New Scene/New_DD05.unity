@@ -1159,7 +1159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15a95965c1ae7294383cc1fe884fec91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AutoSceneReturner
-  waitDuration: 5
+  waitDuration: 7
 --- !u!1 &2036450383
 GameObject:
   m_ObjectHideFlags: 0

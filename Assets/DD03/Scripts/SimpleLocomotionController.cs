@@ -11,7 +11,9 @@ public class SimpleLocomotionController : MonoBehaviour
     [SerializeField] private float moveSpeed = 2.0f;
 
     [Header("Ray Interaction")]
-    [SerializeField] private RayInteractor rayInteractor;
+    [SerializeField] private RayInteractor HrayInteractor;
+    [SerializeField] private RayInteractor CrayInteractor;
+
 
     private float moveInput;
     private bool isMoving = false;
@@ -23,8 +25,8 @@ public class SimpleLocomotionController : MonoBehaviour
     private void Start()
     {
         //최초에는 꺼두기 
-        rayInteractor.gameObject.SetActive(false);
-
+        HrayInteractor.gameObject.SetActive(false);
+        CrayInteractor.gameObject.SetActive(false);
     }
 
     private void Update()
@@ -45,8 +47,10 @@ public class SimpleLocomotionController : MonoBehaviour
 
     private void SetRayActive(bool active)
     {
-        if (rayInteractor == null) return;
-        rayInteractor.gameObject.SetActive(active);
+        if (HrayInteractor == null || CrayInteractor == null) return;
+        HrayInteractor.gameObject.SetActive(active);
+        CrayInteractor.gameObject.SetActive(active);
+
     }
 
     private void FixedUpdate()
