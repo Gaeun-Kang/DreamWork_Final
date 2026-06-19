@@ -16,12 +16,25 @@ public class LevelTransition : MonoBehaviour
     [SerializeField] private float transitionDelay = 0.5f;
 
     /// 포탈 진입 시 외부에서 호출 (VR grabble 등)
+    /// 
+    public static LevelTransition Instance;
 
-    void Awake()
+    private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+        // --- DDOL 및 싱글톤 구조화 ---
+        if (Instance == null)
+        {
+            Instance = this;
+            // 최상위 플레이어 부모 오브젝트를 찾아 DontDestroyOnLoad 처리
+            DontDestroyOnLoad(transform.root.gameObject);
+        }
+        else
+        {
+            // 중복 생성 방지: 이미 인스턴스가 있다면 새로 생긴 플레이어 세트를 통째로 파괴
+            Destroy(transform.root.gameObject);
+            return;
+        }
     }
-
     public void EnterPortal(ImageSetData selectedImageSet)
     {
         if (selectedImageSet == null)

@@ -2909,7 +2909,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 565199707}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -3.98571}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -2917,11 +2917,11 @@ RectTransform:
   - {fileID: 1756263391}
   - {fileID: 1412989647}
   - {fileID: 1776387631}
-  m_Father: {fileID: 2015769682}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -0.97457, y: 1.89}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1272, y: 970}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &565199712
@@ -6128,7 +6128,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3456768597155298673, guid: 0b28d04bc9a122543ae0f12a59c00b20, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3456768597155298676, guid: 0b28d04bc9a122543ae0f12a59c00b20, type: 3}
       propertyPath: m_LocalScale.x
@@ -9202,6 +9202,7 @@ MonoBehaviour:
   mainDissolver: {fileID: 706210948}
   emotionParticlePlayer: {fileID: 1668445237}
   dreamGlobePrefab: {fileID: 2738488496230624676, guid: 49ad0aa1aa950ca41b795c1a4344be3d, type: 3}
+  HandRay: {fileID: 243816509}
   baseMaterial: {fileID: 2100000, guid: 6db5dabaa2cc0eb4ca5bc4019f9dea9b, type: 2}
   globeTextures: []
   texturePropertyName: _MainTex
@@ -11989,7 +11990,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LeftHandControllerUI
   controllerUiCanvas: {fileID: 565199707}
-  rayInteractor: {fileID: 0}
+  rayInteractor: {fileID: 243816515}
   exitUiObject: {fileID: 1756263390}
   returnUiObject: {fileID: 1412989646}
   restartUiObject: {fileID: 1589028408}
@@ -12006,8 +12007,7 @@ Transform:
   m_LocalPosition: {x: 0.97457, y: -1.89, z: 3.98571}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 565199711}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2023897803
@@ -13097,11 +13097,11 @@ MonoBehaviour:
   - gameEvent: 0
     clip: {fileID: 8300000, guid: d976d6869bbc4a84f87304eb48040c5d, type: 3}
     volume: 0.349
-    loop: 0
+    loop: 1
   - gameEvent: 1
     clip: {fileID: 8300000, guid: dd2e0703ec6db6444b6aba97670cec80, type: 3}
     volume: 0.375
-    loop: 0
+    loop: 1
   - gameEvent: 8
     clip: {fileID: 8300000, guid: b84a110962f1ab54dafc3133bb9b2b5e, type: 3}
     volume: 0.375
@@ -13109,15 +13109,15 @@ MonoBehaviour:
   - gameEvent: 5
     clip: {fileID: 8300000, guid: ebfd389bce5932a4ba167f8d68bade14, type: 3}
     volume: 0.375
-    loop: 0
+    loop: 1
   - gameEvent: 6
     clip: {fileID: 8300000, guid: 7091107e81eabad43afc8286462b7825, type: 3}
     volume: 0.375
-    loop: 0
+    loop: 1
   - gameEvent: 7
     clip: {fileID: 8300000, guid: af8930045f904e14ca4bbca63bf6e84c, type: 3}
     volume: 0.375
-    loop: 0
+    loop: 1
   fadeDuration: 1.5
   _sfxClip:
   - {fileID: 8300000, guid: a120e7838d25b7c42a7781273683761e, type: 3}
@@ -13456,6 +13456,7 @@ SceneRoots:
   - {fileID: 220189319}
   - {fileID: 2119898121}
   - {fileID: 768544727}
+  - {fileID: 565199711}
   - {fileID: 2015769682}
   - {fileID: 240729895}
   - {fileID: 1507981843}

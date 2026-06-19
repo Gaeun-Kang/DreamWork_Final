@@ -1,6 +1,7 @@
 using Oculus.Interaction;
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using static Oculus.Interaction.Context;
 
 public class SimpleLocomotionController : MonoBehaviour
 {

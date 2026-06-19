@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class AutoSceneReturner : MonoBehaviour
 {
@@ -18,15 +19,6 @@ public class AutoSceneReturner : MonoBehaviour
         // 1. 지정된 시간(15초) 동안 대기
         yield return new WaitForSeconds(waitDuration);
 
-        // 2. 대기 시간이 끝나면 바로 이전 씬으로 돌아갑니다.
-        if (LeftHandControllerUI.Instance != null)
-        {
-            // LeftHandControllerUI에 작성해둔 UI 끄기 및 MainScene_DD03 로드 함수 실행
-            LeftHandControllerUI.Instance.LoadPreviousScene();
-        }
-        else
-        {
-            Debug.LogError("[AutoSceneReturner] LeftHandControllerUI 인스턴스를 찾을 수 없습니다.");
-        }
+        SceneManager.LoadScene("MainScene_DD03");
     }
 }

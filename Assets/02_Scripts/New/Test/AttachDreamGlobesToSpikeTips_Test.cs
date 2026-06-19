@@ -1,5 +1,6 @@
 using INab.Dissolve;
 using Oculus.Interaction;
+using Oculus.Interaction.Input;
 using System.Collections;
 using UnityEngine;
 using static UnityEngine.Rendering.DebugUI;
@@ -212,9 +213,6 @@ public class AttachDreamGlobesToSpikeTips_Test : MonoBehaviour
 
         Debug.Log($"[ISDK] {globe.name} 전체 재초기화 완료");
     }
-
-
-
     private void ApplyTextureMaterial(GameObject target, int index)
     {
         // Index 기반 ImageSetData 주입
