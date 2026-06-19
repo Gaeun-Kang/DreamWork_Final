@@ -2,6 +2,7 @@ using Oculus.Interaction;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 using static Oculus.Interaction.Context;
+using System.Collections;
 
 public class SimpleLocomotionController : MonoBehaviour
 {
@@ -17,6 +18,14 @@ public class SimpleLocomotionController : MonoBehaviour
 
     // 왼쪽 컨트롤러 명시
     private OVRInput.Controller leftController = OVRInput.Controller.LTouch;
+
+
+    private void Start()
+    {
+        //최초에는 꺼두기 
+        rayInteractor.gameObject.SetActive(false);
+
+    }
 
     private void Update()
     {
