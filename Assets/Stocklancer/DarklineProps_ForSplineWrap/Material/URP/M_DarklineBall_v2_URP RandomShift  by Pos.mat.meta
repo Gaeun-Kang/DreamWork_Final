@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: b93e8ad8ad4a7204f8336feb38c333b3
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 322918
+  packageName: 'Darkline Props 7: Spline Wrap'
+  packageVersion: 1.0
+  assetPath: Assets/Stocklancer/DarklineProps_ForSplineWrap/Material/URP/M_DarklineBall_v2_URP
+    RandomShift  by Pos.mat
+  uploadId: 762968

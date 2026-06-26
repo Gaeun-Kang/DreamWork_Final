@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 32df7570700bee84c85192352bf0a0de
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 322918
+  packageName: 'Darkline Props 7: Spline Wrap'
+  packageVersion: 1.0
+  assetPath: Assets/Settings/Performant_PipelineAsset.asset
+  uploadId: 762968
