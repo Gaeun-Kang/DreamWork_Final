@@ -92,25 +92,26 @@ namespace Oculus.Avatar2
                     _animationBehavior.RecalibrateStandingHeight();
                 }
             }
-
-            Vector2 thumbstickInput = GetThumbstickInput();
-            if (Mathf.Abs(thumbstickInput.x) >= _thumbstickDeadzone)
-            {
-                if (_thumbstickWasInDeadzone)
-                {
-                    // Rotate the avatar's GameObject 45 degrees to the left or right, depending on the sign of the thumbstick x-axis input.
-                    transform.rotation *= Quaternion.AngleAxis(45.0f * Mathf.Sign(thumbstickInput.x), Vector3.up);
-                }
-
-                // We require that the thumbstick must return to the deadzone before allowing the rotation to be
-                // applied again. This prevents accidentally over-rotating if you hold the thumbstick down.
-                _thumbstickWasInDeadzone = false;
-            }
-            else
-            {
-                _thumbstickWasInDeadzone = true;
-            }
         }
+        /*
+        Vector2 thumbstickInput = GetThumbstickInput();
+        if (Mathf.Abs(thumbstickInput.x) >= _thumbstickDeadzone)
+        {
+            if (_thumbstickWasInDeadzone)
+            {
+                // Rotate the avatar's GameObject 45 degrees to the left or right, depending on the sign of the thumbstick x-axis input.
+                transform.rotation *= Quaternion.AngleAxis(45.0f * Mathf.Sign(thumbstickInput.x), Vector3.up);
+            }
+
+            // We require that the thumbstick must return to the deadzone before allowing the rotation to be
+            // applied again. This prevents accidentally over-rotating if you hold the thumbstick down.
+            _thumbstickWasInDeadzone = false;
+        }
+        else
+        {
+            _thumbstickWasInDeadzone = true;
+        }
+    }*/
 
         private void TransitionToCustomAnimation()
         {
@@ -184,14 +185,15 @@ namespace Oculus.Avatar2
 #endif // USING_XR_SDK
                 ;
         }
-
-        private Vector2 GetThumbstickInput()
-        {
-#if USING_XR_SDK
-            return OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick);
-#else
-            return Vector2.zero;
-#endif
-        }
+        /*
+                private Vector2 GetThumbstickInput()
+                {
+        #if USING_XR_SDK
+                    return OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick);
+        #else
+                    //return Vector2.zero;
+        #endif
+                }
+            }*/
     }
 }

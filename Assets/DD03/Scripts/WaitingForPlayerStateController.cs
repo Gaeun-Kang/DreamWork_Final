@@ -21,9 +21,9 @@ public class WaitingForPlayerStateController : MonoBehaviour
     private bool m_IsHmdMounted;
     private CancellationTokenSource m_Cts;
 
-    // 원래 아바타의 위치와 스케일을 기억해두기 위한 변수 (초기화용)
     private Vector3 m_OriginalAvatarLocalPos;
     private Vector3 m_OriginalAvatarLocalScale;
+    private Vector3 m_DetectedHandWorldPos;
 
     private void Awake()
     {
@@ -42,8 +42,9 @@ public class WaitingForPlayerStateController : MonoBehaviour
     private void Start()
     {
         SoundManager.Instance.PlayBGM(SoundManager.GameEvent.Main_1);
+        m_LocalAvatar.GetSkeletonTransform(CAPI.ovrAvatar2JointType.RightHandWrist);
 
-        // [핵심] 씬이 새로 로드될 때 무조건 상태를 완전히 리셋합니다.
+        //씬 로드시 리셋 
         ForceResetAndEvaluate();
     }
 
@@ -58,9 +59,6 @@ public class WaitingForPlayerStateController : MonoBehaviour
         DOTween.Kill(m_LocalAvatar.transform);
     }
 
-    /// <summary>
-    /// 씬 진입 시 기존 상태를 무시하고 강제로 완전히 초기화한 후 흐름을 평가하는 함수
-    /// </summary>
     private void ForceResetAndEvaluate()
     {
         // 1. 기존 비동기 태스크 및 UI 강제 리셋
@@ -185,8 +183,19 @@ public class WaitingForPlayerStateController : MonoBehaviour
         var rig = PlayerRigRef.Instance;
         if (rig == null) return false;
 
-        return IsHandInFront(rig.LeftHand, rig.CenterEyeAnchor) ||
-               IsHandInFront(rig.RightHand, rig.CenterEyeAnchor);
+        if (IsHandInFront(rig.LeftHand, rig.CenterEyeAnchor))
+        {
+            m_DetectedHandWorldPos = rig.LeftHand.transform.position;
+            return true;
+        }
+
+        if (IsHandInFront(rig.RightHand, rig.CenterEyeAnchor))
+        {
+            m_DetectedHandWorldPos = rig.RightHand.transform.position;
+            return true;
+        }
+
+        return false;
     }
 
     private bool IsHandInFront(OVRHand hand, Transform hmdCenter)
@@ -203,34 +212,106 @@ public class WaitingForPlayerStateController : MonoBehaviour
         return true;
     }
 
+    private float GetAvatarPivotToHandOffset()
+    {
+        if (m_LocalAvatar == null) return 0f;
+
+        Transform handBone = m_LocalAvatar.GetSkeletonTransform(CAPI.ovrAvatar2JointType.RightHandWrist);
+        if (handBone == null) return 0f;
+
+        return handBone.position.y - m_LocalAvatar.transform.position.y;
+    }
+
     private async UniTask AnimateAvatarForward(CancellationToken token)
     {
         if (m_LocalAvatar == null) return;
 
         Transform avatar = m_LocalAvatar.transform;
         m_LocalAvatar.Hidden = false;
-        Vector3 startPos = avatar.localPosition;
-        Vector3 targetPos = startPos + Vector3.forward * m_MoveDistance;
 
-        // 1초 후 뷰 전환 예약 (token 연결을 통해 도중에 취소되면 실행 안 되게 방어)
+        // 임시 시작 위치 (아바타 현재 로컬 위치 그대로 - 머리 렌더링 중에는 위치가 중요하지 않음)
+        Vector3 provisionalStartPos = avatar.localPosition;
+        Vector3 provisionalTargetPos = provisionalStartPos + Vector3.forward * m_MoveDistance;
+
         DOVirtual.DelayedCall(1f, SwitchToThirdPerson).SetLink(gameObject);
 
-        // 앞으로 이동
-        Tween moveTween = avatar.DOLocalMove(targetPos, m_MoveDuration)
+        // 1단계: 일단 이동 시작 (아직 손 위치 보정 전)
+        Tween moveTween = avatar.DOLocalMove(provisionalTargetPos, m_MoveDuration)
             .SetEase(m_ForwardCurve);
 
-        // 이동이 끝날 때까지 대기
-        await moveTween.AsyncWaitForCompletion().AsUniTask();
+        // 0.3초 대기 (이동은 위 트윈이 계속 진행 중)
+        await UniTask.Delay(TimeSpan.FromSeconds(1.0f), cancellationToken: token);
 
-        // 스케일 반전 전 토큰 확인
+        if (token.IsCancellationRequested)
+        {
+            moveTween.Kill();
+            return;
+        }
+
+        // 2단계: 0.3초 시점에서 진행 중인 트윈을 멈추고, 손 위치로 스냅 후 나머지 이동 재시작
+        moveTween.Kill();
+
+        Vector3 currentHandWorldPos = GetCurrentHandWorldPos();
+        Vector3 snappedStartPos = avatar.parent != null
+            ? avatar.parent.InverseTransformPoint(currentHandWorldPos)
+            : currentHandWorldPos;
+
+        float pivotToHandOffset = GetAvatarPivotToHandOffset();
+        snappedStartPos.y -= pivotToHandOffset;
+
+        avatar.localPosition = snappedStartPos; // 손 위치로 스냅 (여기서 "분리" 효과)
+
+        Vector3 finalTargetPos = snappedStartPos + Vector3.forward * m_MoveDistance;
+
+        // 남은 거리만큼 이동 시간 비례 계산 (전체 시간에서 이미 흐른 0.3초 제외)
+        float remainingDuration = Mathf.Max(m_MoveDuration - 1.0f, 0.01f);
+
+        Tween remainingMoveTween = avatar.DOLocalMove(finalTargetPos, remainingDuration)
+            .SetEase(m_ForwardCurve);
+
+        await remainingMoveTween.AsyncWaitForCompletion().AsUniTask();
+
         if (token.IsCancellationRequested) return;
 
-        // scale.z 1 → -1 애니메이션
         Vector3 scale = avatar.localScale;
         Tween flipTween = avatar.DOScale(new Vector3(scale.x, scale.y, -Mathf.Abs(scale.z)), 1f)
             .SetEase(Ease.InOutSine);
 
         await flipTween.AsyncWaitForCompletion().AsUniTask();
+        //GameFlowManager.Instance.ChangeState(GameState.Dream);
+    }
+
+    private Vector3 GetCurrentHandWorldPos()
+    {
+        var rig = PlayerRigRef.Instance;
+        if (rig == null) return m_DetectedHandWorldPos; // fallback
+
+        Vector3? handPos = null;
+
+        if (rig.RightHand != null && rig.RightHand.IsTracked)
+            handPos = rig.RightHand.transform.position;
+        else if (rig.LeftHand != null && rig.LeftHand.IsTracked)
+            handPos = rig.LeftHand.transform.position;
+
+        if (handPos == null)
+        {
+            GameFlowManager.Instance.ChangeState(GameState.Dream);
+            return m_DetectedHandWorldPos;
+        }
+
+        Vector3 hmdForward = rig.CenterEyeAnchor != null ? rig.CenterEyeAnchor.forward : Vector3.forward;
+        Vector3 hmdRight = rig.CenterEyeAnchor != null ? rig.CenterEyeAnchor.right : Vector3.right;
+
+        // 수평면 기준으로만 보정 (위아래 기울임 영향 제거)
+        hmdForward.y = 0f;
+        hmdRight.y = 0f;
+        hmdForward = hmdForward.sqrMagnitude > 0.0001f ? hmdForward.normalized : Vector3.forward;
+        hmdRight = hmdRight.sqrMagnitude > 0.0001f ? hmdRight.normalized : Vector3.right;
+
+        const float zOffset = 0.25f;
+        const float xOffset = 0.16f; // 오른손 기준 왼쪽으로 보정, 필요시 조정
+
+        return handPos.Value + hmdForward * zOffset - hmdRight * xOffset;
     }
 
     private void SwitchToThirdPerson()
