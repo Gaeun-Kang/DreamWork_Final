@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 1c6219b6928152f47b16bcefe40fc495
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 375624
+  packageName: Interactive Raymarcher
+  packageVersion: 1.0
+  assetPath: Assets/Interactive Raymarcher/Prefabs/Electric.prefab
+  uploadId: 907848

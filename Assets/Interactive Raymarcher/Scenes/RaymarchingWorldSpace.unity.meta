@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 2484603a63fea406f855704299f9f167
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 375624
+  packageName: Interactive Raymarcher
+  packageVersion: 1.0
+  assetPath: Assets/Interactive Raymarcher/Scenes/RaymarchingWorldSpace.unity
+  uploadId: 907848

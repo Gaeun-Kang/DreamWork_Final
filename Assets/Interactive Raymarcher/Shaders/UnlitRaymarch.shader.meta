@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 98546765cabaea94fa3422bbb11e08a4
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 375624
+  packageName: Interactive Raymarcher
+  packageVersion: 1.0
+  assetPath: Assets/Interactive Raymarcher/Shaders/UnlitRaymarch.shader
+  uploadId: 907848

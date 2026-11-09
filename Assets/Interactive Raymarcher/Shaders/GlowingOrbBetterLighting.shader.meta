@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: a358c49de538b4f368e2fed89ca0cfa6
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  preprocessorOverride: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 375624
+  packageName: Interactive Raymarcher
+  packageVersion: 1.0
+  assetPath: Assets/Interactive Raymarcher/Shaders/GlowingOrbBetterLighting.shader
+  uploadId: 907848

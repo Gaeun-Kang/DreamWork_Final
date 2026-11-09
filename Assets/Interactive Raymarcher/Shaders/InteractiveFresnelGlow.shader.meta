@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 821b6b67871d54c18a759fa5b79d34bb
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  preprocessorOverride: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 375624
+  packageName: Interactive Raymarcher
+  packageVersion: 1.0
+  assetPath: Assets/Interactive Raymarcher/Shaders/InteractiveFresnelGlow.shader
+  uploadId: 907848

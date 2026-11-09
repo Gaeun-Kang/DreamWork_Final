@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 41664effd7f29491892d91fbc857ec30
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 375624
+  packageName: Interactive Raymarcher
+  packageVersion: 1.0
+  assetPath: Assets/Interactive Raymarcher/Materials/Other/Raymarch_DynamicGlowingOrbs.mat
+  uploadId: 907848

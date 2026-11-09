@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: af9301125e66d474d91da0584e51b1f1
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 375624
+  packageName: Interactive Raymarcher
+  packageVersion: 1.0
+  assetPath: Assets/Interactive Raymarcher/Scenes/Raymarching-Interactive-2.unity
+  uploadId: 907848

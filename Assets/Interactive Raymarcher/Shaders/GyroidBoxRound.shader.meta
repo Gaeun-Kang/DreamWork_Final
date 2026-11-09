@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 031f06842533244d7b717db650fb099f
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  preprocessorOverride: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 375624
+  packageName: Interactive Raymarcher
+  packageVersion: 1.0
+  assetPath: Assets/Interactive Raymarcher/Shaders/GyroidBoxRound.shader
+  uploadId: 907848

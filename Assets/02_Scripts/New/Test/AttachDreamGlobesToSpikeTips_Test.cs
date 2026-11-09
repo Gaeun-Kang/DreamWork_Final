@@ -14,6 +14,7 @@ public class AttachDreamGlobesToSpikeTips_Test : MonoBehaviour
     public GameObject dreamGlobePrefab;
 
     [Header("Texture Materials")]
+    public Material RaymarcherMat;
     public Material baseMaterial;
     public Texture2D[] globeTextures;
     public string texturePropertyName = "_MainTex";

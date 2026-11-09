@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 0fbe91010350c4864a6d6e025adbd836
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 375624
+  packageName: Interactive Raymarcher
+  packageVersion: 1.0
+  assetPath: Assets/Interactive Raymarcher/Materials/Displacement/Raymarch_DisplacedTorus_RedYellow.mat
+  uploadId: 907848

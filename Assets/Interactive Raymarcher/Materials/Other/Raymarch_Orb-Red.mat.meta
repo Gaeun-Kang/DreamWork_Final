@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 104b3afd2b11b4d65ba1a9d4e70202ef
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 375624
+  packageName: Interactive Raymarcher
+  packageVersion: 1.0
+  assetPath: Assets/Interactive Raymarcher/Materials/Other/Raymarch_Orb-Red.mat
+  uploadId: 907848

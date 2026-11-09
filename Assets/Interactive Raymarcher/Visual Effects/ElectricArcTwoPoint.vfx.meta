@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: d7f1a0aaccb75b849a385f27c2992803
+VisualEffectImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 375624
+  packageName: Interactive Raymarcher
+  packageVersion: 1.0
+  assetPath: Assets/Interactive Raymarcher/Visual Effects/ElectricArcTwoPoint.vfx
+  uploadId: 907848

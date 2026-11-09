@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 5afd1463313334ec7b4b6d1ec76702a6
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 375624
+  packageName: Interactive Raymarcher
+  packageVersion: 1.0
+  assetPath: Assets/Interactive Raymarcher/Materials/Other/Raymarch_GyroidBoxRound.mat
+  uploadId: 907848

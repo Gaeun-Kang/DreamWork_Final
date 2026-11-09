@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 907fb402a51c046b1ab49a6b0a4ce805
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 375624
+  packageName: Interactive Raymarcher
+  packageVersion: 1.0
+  assetPath: Assets/Interactive Raymarcher/Materials/BaseMaterials/Raymarch_GlowingBoxFrame.mat
+  uploadId: 907848

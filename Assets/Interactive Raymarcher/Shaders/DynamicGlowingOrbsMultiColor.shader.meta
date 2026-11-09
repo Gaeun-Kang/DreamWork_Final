@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: bef0e617d970a4336b6482f11efc196c
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  preprocessorOverride: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 375624
+  packageName: Interactive Raymarcher
+  packageVersion: 1.0
+  assetPath: Assets/Interactive Raymarcher/Shaders/DynamicGlowingOrbsMultiColor.shader
+  uploadId: 907848

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 46341e510b5264227ad7d35a2e861959
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 375624
+  packageName: Interactive Raymarcher
+  packageVersion: 1.0
+  assetPath: Assets/Interactive Raymarcher/Prefabs/Orb.prefab
+  uploadId: 907848

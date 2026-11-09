@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: d7fc5d1a29d91473fbd2da3cc5ebb340
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 375624
+  packageName: Interactive Raymarcher
+  packageVersion: 1.0
+  assetPath: Assets/Interactive Raymarcher/Materials/Other/Raymarch_GlowingOrbBetterLighting.mat
+  uploadId: 907848

@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 42166b5b668344b49bf28722730bc2dc
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  preprocessorOverride: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 375624
+  packageName: Interactive Raymarcher
+  packageVersion: 1.0
+  assetPath: Assets/Interactive Raymarcher/Shaders/OrbsEnvironmentLighting.shader
+  uploadId: 907848
