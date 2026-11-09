@@ -1,9 +1,8 @@
 # DreamWork
 
-> [외주]꿈 속 기억의 구슬(Dream Globe)을 골라 포탈을 통해 그 꿈의 세계로 들어가는 **Meta Quest 기반 VR 인터랙티브 콘텐츠**입니다.
+> 꿈 속 기억의 구슬(Dream Globe)을 골라 포탈을 통해 그 꿈의 세계로 들어가는 **Meta Quest 기반 VR 인터랙티브 콘텐츠**입니다.
 
-<!-- 대표 이미지 / 데모 GIF를 여기에 추가하세요 -->
-<!-- ![demo](Docs/demo.gif) -->
+<img width="654" height="368" alt="DreamSphere" src="https://github.com/user-attachments/assets/2cf16ab7-537f-4d53-b5e9-9aefbaa77cc8" />
 
 📝 개발 기록: [[Unity C#] Scriptable Object 활용](https://hungrykang.tistory.com/85)
 
@@ -16,7 +15,7 @@
 | 플랫폼 | Meta Quest (Standalone VR) |
 | 엔진 | Unity 6000.2.5f1 (URP 17.2) |
 | 입력 | Meta XR Interaction SDK — 컨트롤러 Ray 인터랙션 |
-| 형태 | 외주 프로젝트 (기존 프로젝트를 넘겨받아 구조 개선 및 기능 개발, 5월 - 6월 진행) |
+| 형태 | **외주 프로젝트** (기존 프로젝트를 넘겨받아 구조 개선 및 기능 개발, 5월 - 6월 진행) |
 
 ---
 
@@ -135,9 +134,6 @@ SelectableObject (Globe)
 | Unity XR Oculus / OpenXR | 4.5.4 / 1.17.1 |
 | Alembic | 2.4.5 |
 | UniTask | Git (Cysharp) |
-
-추가 에셋: INab Dissolve, Interactive Raymarcher, Sherbbs Particle Collection, Stylized Water 3 등
-
 
 
 ### 조작
