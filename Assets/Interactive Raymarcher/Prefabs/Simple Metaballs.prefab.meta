@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 4f1d2befc6bda8844a39333d8ee15a57
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 375624
+  packageName: Interactive Raymarcher
+  packageVersion: 1.0
+  assetPath: Assets/Interactive Raymarcher/Prefabs/Simple Metaballs.prefab
+  uploadId: 907848

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 33eacf79e6c4c564298e15e5f312a5e5
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 375624
+  packageName: Interactive Raymarcher
+  packageVersion: 1.0
+  assetPath: Assets/Interactive Raymarcher/Prefabs/Metaballs Interactive.prefab
+  uploadId: 907848

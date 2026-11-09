@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 5be55ba0004124caeb8630581c7e937a
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 375624
+  packageName: Interactive Raymarcher
+  packageVersion: 1.0
+  assetPath: Assets/Interactive Raymarcher/Materials/Other/Raymarch_OnionGyroid.mat
+  uploadId: 907848

@@ -1,3 +1,4 @@
+using Oculus.Interaction;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -21,30 +22,24 @@ public class LevelTransition : MonoBehaviour
 
     private void Awake()
     {
-        // --- DDOL 및 싱글톤 구조화 ---
-        if (Instance == null)
-        {
-            Instance = this;
-            // 최상위 플레이어 부모 오브젝트를 찾아 DontDestroyOnLoad 처리
-            DontDestroyOnLoad(transform.root.gameObject);
-        }
-        else
-        {
-            // 중복 생성 방지: 이미 인스턴스가 있다면 새로 생긴 플레이어 세트를 통째로 파괴
-            Destroy(transform.root.gameObject);
-            return;
-        }
+      if(Instance == null)
+        { Instance = this; }
+        else 
+        { Destroy(gameObject); }
     }
     public void EnterPortal(ImageSetData selectedImageSet)
     {
-        if (selectedImageSet == null)
+        if (selectedImageSet == null) return;
+        SoundManager.Instance.PlaySFXByIndex(5, volume: 0.4f);
+        //씬전환동안 RayInteractor 비활성화 
+        var rayInteractors = Object.FindObjectsByType<RayInteractor>(FindObjectsSortMode.None);
+        foreach (var interactor in rayInteractors)
         {
-            Debug.LogWarning("[LevelTransitionManager] 선택된 ImageSet이 없습니다.");
-            return;
+            interactor.gameObject.SetActive(false);
         }
 
+
         _StaticImageSet = selectedImageSet;
-        Debug.Log($"[LevelTransitionManager] 포탈 진입 → DD05, Set [{selectedImageSet.setID}]");
         StartCoroutine(LoadDD05(selectedImageSet));
     }
 
@@ -52,20 +47,25 @@ public class LevelTransition : MonoBehaviour
     {
         yield return new WaitForSeconds(transitionDelay);
 
-        SoundManager.Instance.PlayBGM(SoundManager.GameEvent.World_Trans);
+        // 씬 전환 직전, 활성 상태의 모든 RayInteractable을 강제로 Disable
+        // (비활성 상태였던 것도 깨워서 OnDisable 트리거)
+        var allInteractables = Object.FindObjectsByType<RayInteractable>(
+            FindObjectsInactive.Include, FindObjectsSortMode.None);
+        foreach (var ri in allInteractables)
+        {
+            if (!ri.gameObject.activeInHierarchy)
+            {
+                ri.gameObject.SetActive(true); // 강제 활성화
+            }
+            ri.enabled = false; // OnDisable 명시적 트리거 → Unregister 보장
+        }
 
-        // Additive 방식이 아닌 Single 씬 전환
         AsyncOperation op = SceneManager.LoadSceneAsync(dd05SceneName, LoadSceneMode.Single);
-        op.allowSceneActivation = false;
-
-        while (op.progress < 0.9f)
+        while (!op.isDone)
+        {
             yield return null;
-
-        op.allowSceneActivation = true;
-
-        // 씬 로드 완료 후 Skybox 적용
-        yield return null; // 한 프레임 대기 (DD05SkyboxController Awake 완료 보장)
-        ApplySkyboxInDD05();
+        }
+        yield return null;
     }
 
     private void ApplySkyboxInDD05()
@@ -94,6 +94,14 @@ public class LevelTransition : MonoBehaviour
             _StaticImageSet = null;
         }
     }
+    public static ImageSetData GetPendingImageSet()
+    {
+        return _StaticImageSet;
+    }
 
+    public static void ClearPendingImageSet()
+    {
+        _StaticImageSet = null;
+    }
 
 }

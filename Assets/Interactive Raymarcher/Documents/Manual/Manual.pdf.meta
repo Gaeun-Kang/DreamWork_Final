@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: aff745fa05d82e345b26d73b592c9924
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 375624
+  packageName: Interactive Raymarcher
+  packageVersion: 1.0
+  assetPath: Assets/Interactive Raymarcher/Documents/Manual/Manual.pdf
+  uploadId: 907848

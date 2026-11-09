@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 0bb8c216bfb8a467b9008021904d15f4
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 375624
+  packageName: Interactive Raymarcher
+  packageVersion: 1.0
+  assetPath: Assets/Interactive Raymarcher/Materials/Other/Raymarch_GlowingOrbSingularInteractive.mat
+  uploadId: 907848

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: aee35fc1f1146984a87678085044524c
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 375624
+  packageName: Interactive Raymarcher
+  packageVersion: 1.0
+  assetPath: Assets/Interactive Raymarcher/URP Settings/DefaultVolumeProfile 1.asset
+  uploadId: 907848

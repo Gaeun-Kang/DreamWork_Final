@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 8ee52d4d34d8c4515ab51b4451707fa7
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  preprocessorOverride: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 375624
+  packageName: Interactive Raymarcher
+  packageVersion: 1.0
+  assetPath: Assets/Interactive Raymarcher/Shaders/MatcapSphere.shader
+  uploadId: 907848

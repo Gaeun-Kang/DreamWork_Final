@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: e3b42ff88203c4fc18ca312427402feb
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 375624
+  packageName: Interactive Raymarcher
+  packageVersion: 1.0
+  assetPath: Assets/Interactive Raymarcher/Scripts/InteractiveRaymarcher.cs
+  uploadId: 907848

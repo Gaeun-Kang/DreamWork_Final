@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 92296459a350ef44c8cb2e5167536097
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 375624
+  packageName: Interactive Raymarcher
+  packageVersion: 1.0
+  assetPath: Assets/Interactive Raymarcher/Prefabs/Raymarch.prefab
+  uploadId: 907848

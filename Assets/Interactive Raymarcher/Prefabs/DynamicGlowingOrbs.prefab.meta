@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 0048ab4e7c91641d6b10a5874324cef6
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 375624
+  packageName: Interactive Raymarcher
+  packageVersion: 1.0
+  assetPath: Assets/Interactive Raymarcher/Prefabs/DynamicGlowingOrbs.prefab
+  uploadId: 907848

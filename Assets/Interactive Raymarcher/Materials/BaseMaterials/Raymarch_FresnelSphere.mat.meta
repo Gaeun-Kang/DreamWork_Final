@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 33ab3a173d1ce4e038687abb92789371
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 375624
+  packageName: Interactive Raymarcher
+  packageVersion: 1.0
+  assetPath: Assets/Interactive Raymarcher/Materials/BaseMaterials/Raymarch_FresnelSphere.mat
+  uploadId: 907848
